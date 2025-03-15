@@ -101,18 +101,44 @@ document.addEventListener('DOMContentLoaded', function() {
             courseCard.className = 'course-card';
             courseCard.innerHTML = `
                 <div class="course-details">
-                    <h3>${course.fullName}</h3>
+                    <h3>${course.name}</h3>
                     <p>Instructor: ${course.instructor}</p>
                     <span class="course-category">${course.category}</span>
                 </div>
                 <div class="course-meta">
-                    <span class="status"><i class="far fa-clock"></i>${course.status}</span>
+                    <span class="status"><i class="far fa-clock"></i>${course.stage}</span>
                 </div>
                 <div class="course-actions">
-                    <button class="btn-view">View course</button>
+                    <button class="btn-view">Register</button>
                 </div>
             `;
             courseList.appendChild(courseCard);
+
+            const registerButton = courseCard.querySelector('.btn-view');
+                registerButton.addEventListener('click', () => {
+                    console.log(`${course.name}`);
+                    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                const totalEnrolled = course.registeredStudents.length + course.pendingStudents.length;
+                if (totalEnrolled >= course.capacity) {
+                    alert("No available space in the course.");
+                    return;
+                }
+                if (course.prerequisite !== null && !currentUser.completedCourses.includes(course.prerequisite)) {
+                    alert("You do not meet the prerequisite for this course.");
+                    return;
+                }
+                if (currentUser.pendingCourses.includes(course.id)) {
+                    alert("You have already applied for this course.");
+                    return;
+                }
+                course.pendingStudents.push(currentUser.id);
+                currentUser.pendingCourses.push(course.id);
+                registerButton.textContent = "Pending";
+                alert("Registration pending approval.");
+                });
+
+
         });
     }
 });
+
