@@ -3,86 +3,87 @@
     {
       "id": "C101",
       "name": "Introduction to Programming",
-      "instructor": "",
       "category": "Intro",
       "prerequisite": null,
       "openForRegistration": true,
-      "registeredStudents": [],
-      "pendingStudents": [],
-      "approved": false,
-      "capacity": 30,
-      "minRegistrations": 5,
-      "stage": "draft"
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C101-001",
+          "instructor": "Dr. Ali",
+          "capacity": 30,
+          "minRegistrations" : 10,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": true
+        },
+        {
+          "sectionId": "C101-002",
+          "instructor": "Dr. Fatima",
+          "capacity": 25,
+          "minRegistrations" : 10,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": true
+        }
+      ]
     },
     {
       "id": "C102",
       "name": "Object-Oriented Programming",
-      "instructor": "",
       "category": "CS",
       "prerequisite": "C101",
       "openForRegistration": true,
-      "registeredStudents": [],
-      "pendingStudents": [],
-      "approved": false,
-      "capacity": 25,
-      "minRegistrations": 5,
-      "stage": "draft"
+      "stage": "draft",
+      "sections": [
+        {
+          "sectionId": "C102-001",
+          "instructor": "Dr. Lee",
+          "capacity": 20,
+          "minRegistrations" : 5,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
     },
     {
       "id": "C103",
-      "name": "Design Of Systems",
-      "instructor": "",
+      "name": "Design of Systems",
       "category": "CE",
       "prerequisite": null,
-      "openForRegistration": true,
-      "registeredStudents": [],
-      "pendingStudents": [],
-      "approved": false,
-      "capacity": 30,
-      "minRegistrations": 5,
-      "stage": "draft"
+      "openForRegistration": false,
+      "stage": "draft",
+      "sections": [
+        {
+          "sectionId": "C103-001",
+          "instructor": "Dr. Brown",
+          "capacity": 30,
+          "minRegistrations" : 10,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
     },
     {
       "id": "C104",
       "name": "Web Development",
-      "instructor": "",
       "category": "CE",
       "prerequisite": null,
       "openForRegistration": true,
-      "registeredStudents": [],
-      "pendingStudents": [],
-      "approved": false,
-      "capacity": 20,
-      "minRegistrations": 5,
-      "stage": "draft"
-    },
-    {
-      "id": "C105",
-      "name": "Hardware Engineering",
-      "instructor": "",
-      "category": "CE",
-      "prerequisite": "C106",
-      "openForRegistration": true,
-      "registeredStudents": [],
-      "pendingStudents": [],
-      "approved": false,
-      "capacity": 15,
-      "minRegistrations": 5,
-      "stage": "draft"
-    },
-    {
-      "id": "C106",
-      "name": "Digital logic",
-      "instructor": "",
-      "category": "CE",
-      "prerequisite": null,
-      "openForRegistration": "C103",
-      "registeredStudents": [],
-      "pendingStudents": [],
-      "approved": false,
-      "capacity": 20,
-      "minRegistrations": 5,
-      "stage": "draft"
+      "stage": "draft",
+      "sections": [
+        {
+          "sectionId": "C104-001",
+          "instructor": "Dr. Garcia",
+          "capacity": 20,
+          "minRegistrations" : 5,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
     }
   ]
 }
