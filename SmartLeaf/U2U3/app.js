@@ -7,14 +7,21 @@ document.addEventListener('DOMContentLoaded', function () {
     const allCoursesTab = document.querySelector('.tab-btn:nth-child(1)');
     const currentCoursesTab = document.querySelector('.tab-btn:nth-child(2)');
     
-    // get the courses from json
-    fetch('courses.json')
-      .then(response => response.json())
-      .then(data => {
-        courses = data.courses;
-        renderCourses(courses);
-      })
-      .catch(error => console.error('Error loading courses:', error));
+    //get courses from local storage if available or from json
+    const storedCourses = localStorage.getItem('courses');
+    if (storedCourses) {
+        courses = JSON.parse(storedCourses);  
+        renderCourses(courses);  
+    } else {
+        fetch('courses.json')
+          .then(response => response.json())
+          .then(data => {
+            courses = data.courses;
+            localStorage.setItem('courses', JSON.stringify(courses));  // Save to localStorage
+            renderCourses(courses);
+          })
+          .catch(error => console.error('Error loading courses:', error));
+    }
   
     // searching course
     searchInput.addEventListener('input', function () {

@@ -43,12 +43,12 @@ body {
     width: 100%;
     padding: 10px;
     border: none;
-    background: #5c8a8a;
+    background: #168d3e;
     color: #fff;
     border-radius: 4px;
     font-size: 16px;
     cursor: pointer;
   }
   button:hover {
-    background: #467a7a;
+    background: rgb(129, 206, 13);
   }

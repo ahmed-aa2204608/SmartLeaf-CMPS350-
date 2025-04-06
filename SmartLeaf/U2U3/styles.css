@@ -365,7 +365,8 @@ body {
     gap: 5px;
 }
 
-.btn-view {
+
+.btn-register {
     background-color: #168d3e;
     color: white;
     border: none;
@@ -375,11 +376,19 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
-.btn-view:hover {
+.btn-register-section {
+    background-color: #168d3e;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 4px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-register:hover, .btn-register-section:hover {
     background-color: rgb(129, 206, 13);
 }
-
 
 /* Responsive Styles */
 @media (min-width: 1200px) {
