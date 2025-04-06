@@ -18,7 +18,7 @@
           "approved": true
         },
         {
-          "sectionId": "C101-002",
+          "id": "C101-002",
           "instructor": "Dr. Fatima",
           "capacity": 25,
           "minRegistrations" : 10,
@@ -37,7 +37,7 @@
       "stage": "draft",
       "sections": [
         {
-          "sectionId": "C102-001",
+          "id": "C102-001",
           "instructor": "Dr. Lee",
           "capacity": 20,
           "minRegistrations" : 5,
@@ -56,7 +56,7 @@
       "stage": "draft",
       "sections": [
         {
-          "sectionId": "C103-001",
+          "id": "C103-001",
           "instructor": "Dr. Brown",
           "capacity": 30,
           "minRegistrations" : 10,
@@ -75,7 +75,7 @@
       "stage": "draft",
       "sections": [
         {
-          "sectionId": "C104-001",
+          "id": "C104-001",
           "instructor": "Dr. Garcia",
           "capacity": 20,
           "minRegistrations" : 5,
