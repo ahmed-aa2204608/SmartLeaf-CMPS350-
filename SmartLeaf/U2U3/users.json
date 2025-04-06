@@ -6,8 +6,14 @@
       "password": "alice123",
       "name": "Alice",
       "role": "student",
-      "completedCourses": [],
-      "registeredCourses": []
+      "completedCourses": ["C101"],
+      "registeredCourses": [],
+      "grades": [
+        {
+          "courseId": "C101",
+          "grade": "A"
+        }
+      ]
     },
     {
       "id": "student2",
@@ -16,7 +22,9 @@
       "name": "Bob",
       "role": "student",
       "completedCourses": [],
-      "registeredCourses": []
+      "registeredCourses": [],
+      "grades": [
+      ]
     },
     {
       "id": "student3",
@@ -24,8 +32,14 @@
       "password": "charlie123",
       "name": "Charlie",
       "role": "student",
-      "completedCourses": [],
-      "registeredCourses": []
+      "completedCourses": ["C101"],
+      "registeredCourses": [],
+      "grades": [
+        {
+          "courseId": "C101",
+          "grade": "B+"
+        }
+      ]
     },
     {
       "id": "admin1",

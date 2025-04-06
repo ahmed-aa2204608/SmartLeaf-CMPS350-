@@ -20,7 +20,7 @@
             </div>
             <nav class="nav-menu">
                 <a href="#" class="nav-item active"><i class="fas fa-home"></i></a>
-                <a href="#" class="nav-item"><i class="fas fa-graduation-cap"></i></a>
+                <a href="learning-path.html" id = "learningPath" class="nav-item"><i class="fas fa-graduation-cap"></i></a>
                 <a href="#" class="nav-item"><i class="fas fa-user"></i></a>
                 <a href="#" class="nav-item"><i class="fas fa-envelope"></i></a>
                 <a href="#" class="nav-item"><i class="fas fa-cog"></i></a>
@@ -93,6 +93,33 @@
       </div>
     </div>
 </div>
+
+<div id="transcriptModal" class="modal">
+    <div class="modal-content">
+      <span class="close-transcript">&times;</span>
+      <h2>My Courses</h2>
+  
+      <h3>Completed</h3>
+      <table class="course-table" id="completedTable">
+        <thead><tr><th>Course Name</th><th>Grade</th></tr></thead>
+        <tbody></tbody>
+      </table>
+  
+      <h3>In Progress</h3>
+      <table class="course-table" id="inProgressTable">
+        <thead><tr><th>Course Name</th></tr></thead>
+        <tbody></tbody>
+      </table>
+  
+      <h3>Pending</h3>
+      <table class="course-table" id="pendingTable">
+        <thead><tr><th>Course Name</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+  
+  
   
     <!-- js file -->
     <script src="app.js"></script>

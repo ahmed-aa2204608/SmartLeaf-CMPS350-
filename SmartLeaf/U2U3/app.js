@@ -198,4 +198,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('.close').addEventListener('click', () => {
       document.getElementById('sectionModal').style.display = "none";
     });
+
+      
 });
