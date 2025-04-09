@@ -107,6 +107,12 @@ body {
     background-color: #f0f0f0;
 }
 
+.grade-input {
+    border-style: solid;
+    border-color: #a2a0a0;
+    
+}
+
 .search-icon {
     position: absolute;
     right: 15px;
@@ -366,7 +372,7 @@ body {
 }
 
 
-.btn-register, .btn-edit-sections {
+.btn-register, .btn-edit-sections, .btn-view-section {
     background-color: #168d3e;
     color: white;
     border: none;
@@ -376,7 +382,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.btn-register-section, .btn-validate, .btn-cancel {
+.btn-register-section, .btn-validate, .btn-cancel, .btn-submit-grade {
     background-color: #168d3e;
     color: white;
     border: none;
@@ -386,7 +392,8 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.btn-register:hover, .btn-register-section:hover, .btn-edit-sections:hover, .btn-validate:hover, .btn-cancel:hover {
+.btn-register:hover, .btn-register-section:hover, .btn-edit-sections:hover,
+ .btn-validate:hover, .btn-cancel:hover, .btn-submit-grade:hover {
     background-color: rgb(129, 206, 13);
 }
 
@@ -552,7 +559,7 @@ body {
   }
   
   .modal-content {
-    background-color: #fefefe;
+    background-color: #fffcfc;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;

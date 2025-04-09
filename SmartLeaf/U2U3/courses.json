@@ -73,14 +73,14 @@
     {
       "id": "C104",
       "name": "Web Development",
-      "category": "CE",
+      "category": "CS",
       "prerequisite": null,
       "openForRegistration": true,
       "stage": "draft",
       "sections": [
         {
           "id": "C104-001",
-          "instructor": "Dr. Garcia",
+          "instructor": "Dr. Ali",
           "timing": "SUN-TUE",
           "capacity": 20,
           "minRegistrations" : 5,

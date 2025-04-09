@@ -51,12 +51,12 @@
     },
     {
       "id": "instructor1",
-      "username": "drsmith",
-      "password": "smith123",
-      "name": "Dr. Smith",
+      "username": "drali",
+      "password": "ali123",
+      "name": "Dr. Ali",
       "role": "instructor",
-      "expertise": ["Mathematics", "Algebra"],
-      "assignedCourses": []
+      "expertise": ["Programming", "Web Development"],
+      "assignedCourses": ["C101", "C104"]
     },
     {
       "id": "instructor2",

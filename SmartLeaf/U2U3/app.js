@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     let courses = [];
+    let users = [];
     let currentUser = JSON.parse(localStorage.getItem('currentUser')); 
     console.log(currentUser);
     const courseList = document.querySelector('.course-list');
@@ -28,6 +29,21 @@ document.addEventListener('DOMContentLoaded', function () {
           })
           .catch(error => console.error('Error loading courses:', error));
     }
+
+    //get users (mainly for students) from local storage if available or from json
+    const storedUsers = localStorage.getItem('users');
+    if (storedUsers) {
+    users = JSON.parse(storedUsers);
+    } else {
+    fetch('users.json')
+        .then(response => response.json())
+        .then(data => {
+            users = data.users;
+            localStorage.setItem('users', JSON.stringify(users));
+        })
+        .catch(error => console.error('Error loading users:', error));
+    }
+
   
     // searching course
     searchInput.addEventListener('input', function () {
@@ -144,8 +160,104 @@ document.addEventListener('DOMContentLoaded', function () {
           
       });
     }
+    
+    //for instructor sections
+    if (currentUser.role === 'instructor') {
+    renderInstructorSections();
+    } 
+    function renderInstructorSections() {
+    const instructorSections = [];
+    courses.forEach(course => {
+      course.sections.forEach(section => {
+        if (section.instructor === currentUser.name) {
+          instructorSections.push({ course, section });
+        }
+      });
+    });
   
-
+    courseList.innerHTML = '';
+    if (instructorSections.length === 0) {
+      courseList.innerHTML = '<p>No sections assigned to you.</p>';
+      return;
+    }
+  
+    instructorSections.forEach(({ course, section }) => {
+      const card = document.createElement('div');
+      card.className = 'course-card';
+      card.innerHTML = `
+        <div class="course-details">
+          <h3>${course.name} - ${section.id}</h3>
+          <p>Timing:</strong> ${section.timing}</p>
+          <p>Capacity:</strong> ${section.capacity}</p>
+          <p>Registered Students:</strong> ${section.registeredStudents.length}</p>
+        </div>
+          <div class="course-actions">
+          <button class="btn-view-section">View Section</button>
+          </div>
+        
+      `;
+      const btn = card.querySelector('.btn-view-section');
+      btn.addEventListener('click', () => openGradeModal(course, section));
+      courseList.appendChild(card);
+    });
+  }
+  
+  //grade students in a section
+  function openGradeModal(course, section) {
+    const modal = document.getElementById('sectionModal');
+    const sectionList = document.getElementById('sectionList');
+    sectionList.innerHTML = '';
+  
+    if (section.registeredStudents.length === 0) {
+      sectionList.innerHTML = '<p>No students registered in this section!</p>';
+    } else {
+      section.registeredStudents.forEach(studentId => {
+        const student = getUserById(studentId);
+        const div = document.createElement('div');
+        div.className = 'section-option';
+        div.innerHTML = `
+          <p><strong>${student.name}</strong></p>
+          <label>Grade: <input class="grade-input" type="text" id="grade-${student.id}" /></label>
+          <button class="btn-submit-grade" onclick="submitGrade('${student.id}', '${course.id}')">Submit</button>
+        `;
+        sectionList.appendChild(div);
+      });
+    }
+    modal.style.display = 'block';
+  }
+  
+  window.submitGrade = function(studentId, courseId) {
+    const gradeInput = document.getElementById(`grade-${studentId}`);
+    const grade = gradeInput.value.trim();
+    if (!grade) {
+      alert("Please enter a grade.");
+      return;
+    }
+  
+    const users = JSON.parse(localStorage.getItem('users'));
+    const student = users.find(u => u.id === studentId);
+    console.log(student);
+  
+    if (!student.grades) {
+      student.grades = [];
+    }
+    const currentGrade = student.grades.find(g => g.courseId === courseId);
+    if (currentGrade) {
+      currentGrade.grade = grade;
+    } else {
+      student.grades.push({ courseId, grade });
+    }
+  
+    localStorage.setItem('users', JSON.stringify(users));
+    alert('Grade submitted successfully.');
+    document.getElementById('sectionModal').style.display = 'none';
+  };
+  
+  function getUserById(id) {
+    const users = JSON.parse(localStorage.getItem('users'));
+    return users.find(u => u.id === id);
+  }
+  
     // modal window for registering course section
     function openRegisterModal(course) {
         const modal = document.getElementById('sectionModal');
