@@ -6,6 +6,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.querySelector('.search-input');
     const allCoursesTab = document.querySelector('.tab-btn:nth-child(1)');
     const currentCoursesTab = document.querySelector('.tab-btn:nth-child(2)');
+
+    //greet user by their name
+    const greetUser = document.getElementById('greet');
+    if (greetUser && currentUser?.name) {
+    greetUser.textContent = `Hello, ${currentUser.name}!`;
+    }
     
     //get courses from local storage if available or from json
     const storedCourses = localStorage.getItem('courses');
