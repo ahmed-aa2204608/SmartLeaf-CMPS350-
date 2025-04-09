@@ -167,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
             sectionOption.classList.add('section-option');
             sectionOption.innerHTML = `
               <p><strong>Instructor:</strong> ${section.instructor}</p>
+              <p><strong>Timing:</strong> ${section.timing}</p>
               <p><strong>Capacity:</strong> ${section.registeredStudents.length}/${section.capacity}</p>
               <button class="btn-register-section" onclick="registerForSection('${course.id}', '${section.id}')">Register</button>
             `;
@@ -190,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
           sectionOption.classList.add('section-option');
           sectionOption.innerHTML = `
             <p><strong>Instructor:</strong> ${section.instructor}</p>
+            <p><strong>Timing:</strong> ${section.timing}</p>
             <p><strong>Capacity:</strong> ${section.registeredStudents.length}/${section.capacity}</p>
             <p><strong>Minimum Registrations:</strong> ${section.minRegistrations}</p>
             <p><strong>Approved:</strong> ${section.approved ? 'Yes' : 'No'}</p>

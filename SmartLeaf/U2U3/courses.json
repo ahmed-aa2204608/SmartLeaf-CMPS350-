@@ -11,8 +11,9 @@
         {
           "id": "C101-001",
           "instructor": "Dr. Ali",
+          "timing": "SUN-TUE-THU",
           "capacity": 30,
-          "minRegistrations" : 5,
+          "minRegistrations" : 3,
           "registeredStudents": [],
           "pendingStudents": [],
           "approved": false
@@ -20,6 +21,7 @@
         {
           "id": "C101-002",
           "instructor": "Dr. Fatima",
+          "timing": "SUN-TUE",
           "capacity": 25,
           "minRegistrations" : 10,
           "registeredStudents": [],
@@ -39,6 +41,7 @@
         {
           "id": "C102-001",
           "instructor": "Dr. Lee",
+          "timing": "MON-WED",
           "capacity": 20,
           "minRegistrations" : 5,
           "registeredStudents": [],
@@ -58,6 +61,7 @@
         {
           "id": "C103-001",
           "instructor": "Dr. Brown",
+          "timing": "SUN-TUE-THU",
           "capacity": 30,
           "minRegistrations" : 10,
           "registeredStudents": [],
@@ -77,6 +81,7 @@
         {
           "id": "C104-001",
           "instructor": "Dr. Garcia",
+          "timing": "SUN-TUE",
           "capacity": 20,
           "minRegistrations" : 5,
           "registeredStudents": [],
