@@ -12,10 +12,10 @@
           "id": "C101-001",
           "instructor": "Dr. Ali",
           "capacity": 30,
-          "minRegistrations" : 10,
+          "minRegistrations" : 5,
           "registeredStudents": [],
           "pendingStudents": [],
-          "approved": true
+          "approved": false
         },
         {
           "id": "C101-002",

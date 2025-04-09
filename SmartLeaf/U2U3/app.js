@@ -236,6 +236,11 @@ document.addEventListener('DOMContentLoaded', function () {
           alert("You are already registered for this course");
           return;
         }
+        //check if student already completed the course before
+        if(currentUser.completedCourses.includes(course.id)) {
+            alert("You have already completed this course");
+            return;
+        }
 
         // Check if section has available capacity
         if (section.registeredStudents.length >= section.capacity) {
