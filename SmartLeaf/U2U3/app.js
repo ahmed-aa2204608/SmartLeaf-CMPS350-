@@ -117,18 +117,29 @@ document.addEventListener('DOMContentLoaded', function () {
             <span class="status"><i class="far fa-clock"></i>${course.stage}</span>
           </div>
           <div class="course-actions">
-            <button class="btn-register">Register</button>
+          ${currentUser.role === "admin" 
+            ? `<button class="btn-edit-sections">Edit Sections</button>` 
+            : `<button class="btn-register">Register</button>`}
           </div>
         `;
         courseList.appendChild(courseCard);
         
-        const registerButton = courseCard.querySelector('.btn-register');
-        registerButton.addEventListener('click', () => {
-          openRegisterModal(course); 
-        });
+        if (currentUser.role === 'admin') {
+            const editButton = courseCard.querySelector('.btn-edit-sections');
+            editButton.addEventListener('click', () => {
+              openEditSectionsModal(course);
+            });
+          } else if (currentUser.role === 'student') {
+            const registerButton = courseCard.querySelector('.btn-register');
+            registerButton.addEventListener('click', () => {
+              openRegisterModal(course);
+            });
+          }
+          
       });
     }
   
+
     // modal window for registering course section
     function openRegisterModal(course) {
         const modal = document.getElementById('sectionModal');
@@ -160,6 +171,54 @@ document.addEventListener('DOMContentLoaded', function () {
         // display modal
         modal.style.display = "block";
     }
+
+    //modal for editing section
+    function openEditSectionsModal(course) {
+        const modal = document.getElementById('sectionModal');
+        const sectionList = document.getElementById('sectionList');
+      
+        sectionList.innerHTML = '';
+      
+        course.sections.forEach(section => {
+          const sectionOption = document.createElement('div');
+          sectionOption.classList.add('section-option');
+          sectionOption.innerHTML = `
+            <p><strong>Instructor:</strong> ${section.instructor}</p>
+            <p><strong>Capacity:</strong> ${section.registeredStudents.length}/${section.capacity}</p>
+            <p><strong>Minimum Registrations:</strong> ${section.minRegistrations}</p>
+            <p><strong>Approved:</strong> ${section.approved ? 'Yes' : 'No'}</p>
+            <button class="btn-validate">Validate</button>
+            <button class="btn-cancel">Cancel</button>
+          `;
+      
+          // validation
+          sectionOption.querySelector('.btn-validate').addEventListener('click', () => {
+            if (section.registeredStudents.length >= section.minRegistrations) {
+              section.approved = true;
+              alert("Section validated!");
+            } else {
+              alert("Not enough registrations to validate this section!");
+            }
+            localStorage.setItem('courses', JSON.stringify(courses));
+            openEditSectionsModal(course); 
+          });
+      
+          // cancel
+          sectionOption.querySelector('.btn-cancel').addEventListener('click', () => {
+            const confirmCancel = confirm("Are you sure you want to cancel this section?");
+            if (confirmCancel) {
+              course.sections = course.sections.filter(s => s.id !== section.id);
+              localStorage.setItem('courses', JSON.stringify(courses));
+              openEditSectionsModal(course); 
+            }
+          });
+      
+          sectionList.appendChild(sectionOption);
+        });
+      
+        modal.style.display = "block";
+      }
+      
     
     // register for a specific section
     window.registerForSection = function(courseId, sectionId) {

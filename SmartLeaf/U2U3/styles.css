@@ -366,7 +366,7 @@ body {
 }
 
 
-.btn-register {
+.btn-register, .btn-edit-sections {
     background-color: #168d3e;
     color: white;
     border: none;
@@ -376,7 +376,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.btn-register-section {
+.btn-register-section, .btn-validate, .btn-cancel {
     background-color: #168d3e;
     color: white;
     border: none;
@@ -386,7 +386,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.btn-register:hover, .btn-register-section:hover {
+.btn-register:hover, .btn-register-section:hover, .btn-edit-sections:hover, .btn-validate:hover, .btn-cancel:hover {
     background-color: rgb(129, 206, 13);
 }
 
