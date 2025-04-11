@@ -1,10 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    let courses = JSON.parse(localStorage.getItem("courses")) || [];
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const courses = JSON.parse(localStorage.getItem("courses")) || [];
     const tableBody = document.getElementById("learningPathTableBody");
+    const student = users.find(u => u.username === currentUser.username && u.role === "student");
+  
+    if (!student) return;
+  
     const rows = [];
-    if (currentUser.grades && currentUser.grades.length > 0) {
-      currentUser.grades.forEach(g => {
+  
+    if (student.grades && student.grades.length > 0) {
+      student.grades.forEach(g => {
         const course = courses.find(c => c.id === g.courseId);
         if (course) {
           rows.push({
@@ -15,8 +21,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     }
-    currentUser.registeredCourses.forEach(courseId => {
-      if (!currentUser.grades.some(g => g.courseId === courseId)) {
+  
+    student.registeredCourses.forEach(courseId => {
+      if (!student.grades.some(g => g.courseId === courseId)) {
         const course = courses.find(c => c.id === courseId);
         if (course) {
           rows.push({
@@ -29,8 +36,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   
     const pendingCourses = courses.filter(c =>
-      !currentUser.registeredCourses.includes(c.id) &&
-      !currentUser.grades.some(g => g.courseId === c.id) &&
+      !student.registeredCourses.includes(c.id) &&
+      !student.grades.some(g => g.courseId === c.id) &&
       c.openForRegistration
     );
   
@@ -41,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
         grade: "-"
       });
     });
-
     tableBody.innerHTML = rows.map(row => `
       <tr>
         <td>${row.name}</td>

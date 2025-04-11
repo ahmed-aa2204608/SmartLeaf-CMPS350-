@@ -342,22 +342,24 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // register for a specific section
     window.registerForSection = function(courseId, sectionId) {
+        const users = JSON.parse(localStorage.getItem('users'));
+        const student = users.find(u => u.id === currentUser.id);
         const course = courses.find(course => course.id === courseId);
         console.log(course);
         const section = course.sections.find(section => section.id === sectionId);
         console.log(section);
         // Check prerequisites
-        if (course.prerequisite !== null && !currentUser.completedCourses.includes(course.prerequisite)) {
+        if (course.prerequisite !== null && !student.completedCourses.includes(course.prerequisite)) {
           alert("You have not completed the prerequisite for this course");
           return;
         }
         // check whether student is already registered for the course
-        if (currentUser.registeredCourses.includes(course.id)) {
+        if (student.registeredCourses.includes(course.id)) {
           alert("You are already registered for this course");
           return;
         }
         //check if student already completed the course before
-        if(currentUser.completedCourses.includes(course.id)) {
+        if(student.completedCourses.includes(course.id)) {
             alert("You have already completed this course");
             return;
         }
@@ -369,12 +371,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     
         // register the student user for the section
-        section.registeredStudents.push(currentUser.id);
-        currentUser.registeredCourses.push(course.id);
+        section.registeredStudents.push(student.id);
+        student.registeredCourses.push(course.id);
         
         // updates the course and student data
         localStorage.setItem('currentUser', JSON.stringify(currentUser));
         localStorage.setItem('courses', JSON.stringify(courses));
+        localStorage.setItem('users', JSON.stringify(users));
 
         console.log("Updated courses data:", courses);
 
