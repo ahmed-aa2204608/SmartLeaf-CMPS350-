@@ -294,9 +294,16 @@ document.addEventListener('DOMContentLoaded', function () {
     //modal for editing section
     function openEditSectionsModal(course) {
         const modal = document.getElementById('sectionModal');
-        const sectionList = document.getElementById('sectionList');
-      
-        sectionList.innerHTML = '';
+        const sectionList = document.getElementById('sectionList'); 
+        sectionList.innerHTML = '';  
+        const newSectionBtn = document.createElement('button');
+        newSectionBtn.textContent = 'New Section';
+        newSectionBtn.className = 'btn-new-section';
+        newSectionBtn.style.marginBottom = '0.5rem';
+        newSectionBtn.addEventListener('click', () => {
+          window.location.href = `create-class.html?courseId=${course.id}`;
+        });
+        sectionList.appendChild(newSectionBtn);
       
         course.sections.forEach(section => {
           const sectionOption = document.createElement('div');
@@ -310,8 +317,8 @@ document.addEventListener('DOMContentLoaded', function () {
             <button class="btn-validate">Validate</button>
             <button class="btn-cancel">Cancel</button>
           `;
-      
-          // validation
+
+          //validate
           sectionOption.querySelector('.btn-validate').addEventListener('click', () => {
             if (section.registeredStudents.length >= section.minRegistrations) {
               section.approved = true;
@@ -322,8 +329,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem('courses', JSON.stringify(courses));
             openEditSectionsModal(course); 
           });
-      
-          // cancel
+          //cancel
           sectionOption.querySelector('.btn-cancel').addEventListener('click', () => {
             const confirmCancel = confirm("Are you sure you want to cancel this section?");
             if (confirmCancel) {
@@ -338,6 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
         modal.style.display = "block";
       }
+      
       
     
     // register for a specific section

@@ -382,7 +382,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.btn-register-section, .btn-validate, .btn-cancel, .btn-submit-grade {
+.btn-register-section, .btn-validate, .btn-cancel, .btn-submit-grade, .btn-new-section {
     background-color: #168d3e;
     color: white;
     border: none;
@@ -393,7 +393,7 @@ body {
     transition: background-color 0.3s;
 }
 .btn-register:hover, .btn-register-section:hover, .btn-edit-sections:hover,
- .btn-validate:hover, .btn-cancel:hover, .btn-submit-grade:hover {
+ .btn-validate:hover, .btn-cancel:hover, .btn-submit-grade:hover, .btn-new-section:hover {
     background-color: rgb(129, 206, 13);
 }
 
@@ -580,5 +580,27 @@ body {
     text-decoration: none;
     cursor: pointer;
   }
+
+  .admin-controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
   
+  
+  .btn-create {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+.btn-create:hover {
+    background-color: #333;
+  }
  

@@ -10,26 +10,25 @@ const saveSectionBtn = document.getElementById('saveSectionBtn');
 
 let tempSections = [];
 
-// If you want to fetch from a file if localStorage is empty
-const COURSES_URL = '/data/courses.json';
+
 
 // Global in-memory courses array
-let coursesData = [];
+let courses = [];
 
-const savedCourses = localStorage.getItem('coursesData');
+const savedCourses = localStorage.getItem('courses');
 if (savedCourses) {
   // Parse from localStorage
-  coursesData = JSON.parse(savedCourses);
-  console.log('Loaded courses from localStorage:', coursesData);
+  courses = JSON.parse(savedCourses);
+  console.log('Loaded courses from localStorage:', courses);
 } else {
   // Otherwise, fetch from JSON
-  fetch(COURSES_URL)
+  fetch('courses.json')
     .then((res) => res.json())
     .then((data) => {
-      coursesData = data.courses || [];
+      courses = data.courses || [];
       // Save to localStorage
-      localStorage.setItem('coursesData', JSON.stringify(coursesData));
-      console.log('Fetched courses from JSON and saved to localStorage:', coursesData);
+      localStorage.setItem('courses', JSON.stringify(courses));
+      console.log('Fetched courses from JSON and saved to localStorage:', courses);
     })
     .catch((err) => console.error('Error loading courses:', err));
 }
@@ -59,7 +58,7 @@ saveSectionBtn.addEventListener('click', () => {
 
   // Build the new section object
   const newSection = {
-    sectionId,
+    id: sectionId,
     instructor,
     capacity: capacity || 0,
     minRegistrations: minRegs || 10,
@@ -108,12 +107,12 @@ createCourseForm.addEventListener('submit', (e) => {
     sections: tempSections
   };
 
-  coursesData.push(newCourse);
+  courses.push(newCourse);
 
-  localStorage.setItem('coursesData', JSON.stringify(coursesData));
+  localStorage.setItem('courses', JSON.stringify(courses));
 
   console.log('New Course Created:', newCourse);
-  console.log('Updated coursesData:', coursesData);
+  console.log('Updated coursesData:', courses);
 
   createCourseForm.reset();
   sectionsList.innerHTML = '';

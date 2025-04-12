@@ -2,44 +2,41 @@ const createClassForm = document.getElementById('createClassForm');
 const courseSelect = document.getElementById('courseSelect');
 const instructorSelect = document.getElementById('instructorSelect');
 
-const COURSES_URL = '/data/courses.json';
-const USERS_URL = '/data/users.json';
+let courses = [];
+let instructors = [];
 
-let coursesData = [];
-let instructorsData = [];
-
-const savedCourses = localStorage.getItem('coursesData');
+const savedCourses = localStorage.getItem('courses');
 if (savedCourses) {
-  coursesData = JSON.parse(savedCourses);
-  populateCoursesDropdown(coursesData);
+  courses = JSON.parse(savedCourses);
+  populateCoursesDropdown(courses);
 } else {
   // Otherwise, fetch from JSON
-  fetch(COURSES_URL)
+  fetch("courses.json")
     .then((res) => res.json())
     .then((data) => {
-      coursesData = data.courses || [];
+      courses = data.courses || [];
       // Save to localStorage
-      localStorage.setItem('coursesData', JSON.stringify(coursesData));
+      localStorage.setItem('courses', JSON.stringify(courses));
       // Populate dropdown
-      populateCoursesDropdown(coursesData);
+      populateCoursesDropdown(courses);
     })
     .catch((err) => console.error('Error loading courses:', err));
 }
 
 
-const savedUsers = localStorage.getItem('usersData');
+const savedUsers = localStorage.getItem('users');
 if (savedUsers) {
   const allUsers = JSON.parse(savedUsers);
-  instructorsData = allUsers.filter(u => u.role === 'instructor');
-  populateInstructorsDropdown(instructorsData);
+  instructors = allUsers.filter(u => u.role === 'instructor');
+  populateInstructorsDropdown(instructors);
 } else {
-  fetch(USERS_URL)
+  fetch("users.json")
     .then((res) => res.json())
     .then((data) => {
       const usersArray = data.users || [];
-      instructorsData = usersArray.filter(u => u.role === 'instructor');
-      localStorage.setItem('usersData', JSON.stringify(usersArray));
-      populateInstructorsDropdown(instructorsData);
+      instructors = usersArray.filter(u => u.role === 'instructor');
+      localStorage.setItem('users', JSON.stringify(usersArray));
+      populateInstructorsDropdown(instructors);
     })
     .catch((err) => console.error('Error loading instructors:', err));
 }
@@ -102,7 +99,7 @@ createClassForm.addEventListener('submit', (e) => {
 
   // Build the new section object
   const newSection = {
-    sectionId,
+    id: sectionId,
     instructor: instructorName,
     capacity: capacity || 0,
     minRegistrations: minRegs || 0,
@@ -112,7 +109,7 @@ createClassForm.addEventListener('submit', (e) => {
   };
 
   // Find the selected course
-  const courseObj = coursesData.find((c) => c.id === selectedCourseId);
+  const courseObj = courses.find((c) => c.id === selectedCourseId);
   if (!courseObj) {
     alert('Selected course not found in data.');
     return;
@@ -122,7 +119,7 @@ createClassForm.addEventListener('submit', (e) => {
   courseObj.sections.push(newSection);
 
   // Persist to localStorage
-  localStorage.setItem('coursesData', JSON.stringify(coursesData));
+  localStorage.setItem('courses', JSON.stringify(courses));
 
   alert(`Successfully created section ${sectionId} for course ${selectedCourseId}!`);
 
