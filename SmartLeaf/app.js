@@ -254,9 +254,6 @@ document.addEventListener('DOMContentLoaded', function () {
             <p>Instructor: Multiple</p>
             <span class="course-category">${course.category}</span>
           </div>
-          <div class="course-meta">
-            <span class="status"><i class="far fa-clock"></i>${course.stage}</span>
-          </div>
           <div class="course-actions">
           ${currentUser.role === "admin" 
             ? `<button class="btn-edit-sections">Edit Sections</button>` 
