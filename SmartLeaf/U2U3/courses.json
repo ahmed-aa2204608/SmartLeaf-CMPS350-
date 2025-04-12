@@ -12,7 +12,7 @@
         {
           "id": "C101-001",
           "instructor": "Dr. Ali",
-          "timing": "SUN-TUE-THU",
+          "timing": 1,
           "capacity": 30,
           "minRegistrations" : 3,
           "registeredStudents": [],
@@ -22,7 +22,7 @@
         {
           "id": "C101-002",
           "instructor": "Dr. Fatima",
-          "timing": "SUN-TUE",
+          "timing": 2,
           "capacity": 25,
           "minRegistrations" : 10,
           "registeredStudents": [],
@@ -43,7 +43,7 @@
         {
           "id": "C102-001",
           "instructor": "Dr. Lee",
-          "timing": "MON-WED",
+          "timing": 4,
           "capacity": 20,
           "minRegistrations" : 5,
           "registeredStudents": [],
@@ -64,7 +64,7 @@
         {
           "id": "C103-001",
           "instructor": "Dr. Brown",
-          "timing": "SUN-TUE-THU",
+          "timing": 7,
           "capacity": 30,
           "minRegistrations" : 10,
           "registeredStudents": [],
@@ -85,7 +85,7 @@
         {
           "id": "C104-001",
           "instructor": "Dr. Ali",
-          "timing": "SUN-TUE",
+          "timing": 1,
           "capacity": 20,
           "minRegistrations" : 5,
           "registeredStudents": [],
@@ -106,7 +106,7 @@
         {
           "id": "C105-001",
           "instructor": "Dr. Brown",
-          "timing": "SUN-TUE-THU",
+          "timing": 5,
           "capacity": 30,
           "minRegistrations" : 10,
           "registeredStudents": [],
@@ -127,7 +127,7 @@
         {
           "id": "C106-001",
           "instructor": "Dr. Brown",
-          "timing": "SUN-TUE-THU",
+          "timing": 6,
           "capacity": 30,
           "minRegistrations" : 10,
           "registeredStudents": [],
@@ -148,7 +148,7 @@
         {
           "id": "C111-001",
           "instructor": "Dr. Martinez",
-          "timing": "SUN-TUE-THU",
+          "timing": 3,
           "capacity": 30,
           "minRegistrations" : 10,
           "registeredStudents": [],
