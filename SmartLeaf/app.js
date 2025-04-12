@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', function () {
         newSectionBtn.className = 'btn-new-section';
         newSectionBtn.style.marginBottom = '0.5rem';
         newSectionBtn.addEventListener('click', () => {
-          window.location.href = `create-class.html?courseId=${course.id}`;
+          window.location.href = `/admin/create-class.html?courseId=${course.id}`;
         });
         sectionList.appendChild(newSectionBtn);
       

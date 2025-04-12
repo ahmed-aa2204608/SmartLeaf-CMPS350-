@@ -99,25 +99,25 @@ document.addEventListener('DOMContentLoaded', () => {
   let navMenuHTML = "";
   if (user.role === "student") {
     navMenuHTML = `
-      <a href="/U2U3/student.html" class="nav-item active"><i class="fas fa-home"></i></a>
+      <a href="/student/student.html" class="nav-item active"><i class="fas fa-home"></i></a>
       <a href="/learningPath/course-schedule.html" id="learningPath" class="nav-item"><i class="fas fa-graduation-cap"></i></a>
       <a href="about.html" class="nav-item"><i class="fas fa-user"></i></a>
       <a href="#" class="nav-item"><i class="fas fa-envelope"></i></a>
-      <a href="/Login/index.html" class="nav-item"><i class="fas fa-sign-out-alt"></i></a>
+      <a href="../index.html" class="nav-item"><i class="fas fa-sign-out-alt"></i></a>
     `;
   } else if (user.role === "instructor") {
     navMenuHTML = `
       <a href="/instructor/instructor.html" class="nav-item active"><i class="fas fa-home"></i></a>
       <a href="/learningPath/course-schedule.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i></a>
       <a href="about.html" class="nav-item"><i class="fas fa-user"></i></a>
-      <a href="/Login/index.html" class="nav-item"><i class="fas fa-sign-out-alt"></i></a>
+      <a href="../index.html" class="nav-item"><i class="fas fa-sign-out-alt"></i></a>
     `;
   } else if (user.role === "admin") {
     navMenuHTML = `
       <a href="/admin/admin.html" class="nav-item active"><i class="fas fa-home"></i></a>
       <a href="/learningPath/course-schedule.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i></a>
       <a href="about.html" class="nav-item"><i class="fas fa-user"></i></a>
-      <a href="/Login/index.html" class="nav-item"><i class="fas fa-sign-out-alt"></i></a>
+      <a href="../index.html" class="nav-item"><i class="fas fa-sign-out-alt"></i></a>
     `;
   }
   if (navMenuElem) {

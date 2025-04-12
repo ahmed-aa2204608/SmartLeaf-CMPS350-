@@ -11,7 +11,7 @@ if (savedCourses) {
   populateCoursesDropdown(courses);
 } else {
   // Otherwise, fetch from JSON
-  fetch("courses.json")
+  fetch("/data/courses.json")
     .then((res) => res.json())
     .then((data) => {
       courses = data.courses || [];
@@ -30,7 +30,7 @@ if (savedUsers) {
   instructors = allUsers.filter(u => u.role === 'instructor');
   populateInstructorsDropdown(instructors);
 } else {
-  fetch("users.json")
+  fetch("/data/users.json")
     .then((res) => res.json())
     .then((data) => {
       const usersArray = data.users || [];
