@@ -15,64 +15,55 @@ document.addEventListener('DOMContentLoaded', function () {
     greetUser.textContent = `Hello, ${currentUser.name}!`;
     }
 
-    const statsSection = document.querySelector(".stats-section");
-    if (statsSection) {
-      const statCards = statsSection.querySelectorAll(".stat-card");
-      if (statCards.length >= 2) {
-        statCards[0].querySelector(".stat-number").textContent =
-        currentUser.completedCourses ? currentUser.completedCourses.length : 0;
-        statCards[0].querySelector(".stat-label").textContent = "Courses completed";
-        statCards[1].querySelector(".stat-number").textContent =
-        currentUser.registeredCourses ? currentUser.registeredCourses.length : 0;
-        statCards[1].querySelector(".stat-label").textContent = "Courses in progress";
-      }
-    }
 
-    function calculateGPA(currentUser) {
-      const gradeMapping = { "A": 4, "B": 3, "C": 2, "D": 1 };
-      let totalPoints = 0, count = 0;
-      currentUser.grades.forEach(gradeObj => {
-        if (gradeMapping.hasOwnProperty(gradeObj.grade)) {
-          totalPoints += gradeMapping[gradeObj.grade];
-          count++;
+
+    if (currentUser.role === "student") {
+      function calculateGPA(currentUser) {
+        const gradeMapping = { "A": 4, "B": 3, "C": 2, "D": 1 };
+        let totalPoints = 0, count = 0;
+        currentUser.grades.forEach(gradeObj => {
+          if (gradeMapping.hasOwnProperty(gradeObj.grade)) {
+            totalPoints += gradeMapping[gradeObj.grade];
+            count++;
+          } else {
+            console.warn("Grade " + gradeObj.grade + " is not recognized.");
+          }
+        });
+        return count > 0 ? totalPoints / count : 0;
+      }
+    
+      const gpa = calculateGPA(currentUser);
+    
+      let warnings = [];
+      const hasDGrade = currentUser.grades.some(gradeObj => gradeObj.grade === "D");
+      if (hasDGrade) {
+        warnings.push("Warning: You have a course with a D grade.");
+      }
+      if (gpa < 2.50) {
+        warnings.push(`Warning: Your overall GPA (${gpa.toFixed(2)}) is below 2.50.`);
+      }
+    
+      let warningSection = document.querySelector(".warning-section");
+      if (!warningSection) {
+        warningSection = document.createElement("section");
+        warningSection.className = "warning-section";
+        const mainContent = document.querySelector(".main-content");
+        const coursesSection = document.querySelector(".courses-section");
+        if (mainContent && coursesSection) {
+          mainContent.insertBefore(warningSection, coursesSection);
         } else {
-          console.warn("Grade " + gradeObj.grade + " is not recognized.");
+          mainContent.appendChild(warningSection);
         }
-      });
-      return count > 0 ? totalPoints / count : 0;
-    }
-    const gpa = calculateGPA(currentUser);
-
-    let warnings = [];
-    const hasDGrade = currentUser.grades.some(gradeObj => gradeObj.grade === "D");
-    if (hasDGrade) {
-      warnings.push("Warning: You have a course with a D grade.");
-    }
-    if (gpa < 2.50) {
-      warnings.push(`Warning: Your overall GPA (${gpa.toFixed(2)}) is below 2.50.`);
-    }
-
-    let warningSection = document.querySelector(".warning-section");
-    if (!warningSection) {
-      warningSection = document.createElement("section");
-      warningSection.className = "warning-section";
-      const mainContent = document.querySelector(".main-content");
-      const coursesSection = document.querySelector(".courses-section");
-      if (mainContent && coursesSection) {
-        mainContent.insertBefore(warningSection, coursesSection);
+      }
+    
+      if (warnings.length > 0) {
+        warningSection.innerHTML = warnings.map(msg => `<p>${msg}</p>`).join("");
+        warningSection.style.display = "block";
       } else {
-        mainContent.appendChild(warningSection);
+        warningSection.style.display = "none";
       }
     }
-
-    if (warnings.length > 0) {
-      warningSection.innerHTML = warnings.map(msg => `<p>${msg}</p>`).join("");
-      warningSection.style.display = "block";
-    } else {
-      warningSection.style.display = "none";
-    }
-
-
+    
 
     //get courses from local storage if available or from json
     const storedCourses = localStorage.getItem('courses');
@@ -104,6 +95,22 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error loading users:', error));
     }
 
+    const statsSection = document.querySelector(".stats-section");
+    if (statsSection) {
+
+      const statCards = statsSection.querySelectorAll(".stat-card");
+      if (statCards.length >= 2) {
+        if(currentUser.role === "student") {
+        const student = users.find(u => u.id === currentUser.id);
+        statCards[0].querySelector(".stat-number").textContent =
+        student.completedCourses ? student.completedCourses.length : 0;
+        statCards[0].querySelector(".stat-label").textContent = "Courses completed";
+        statCards[1].querySelector(".stat-number").textContent =
+        student.registeredCourses ? student.registeredCourses.length : 0;
+        statCards[1].querySelector(".stat-label").textContent = "Courses in progress";
+        }
+      }
+    }
   
     // searching course
     searchInput.addEventListener('input', function () {
@@ -253,9 +260,9 @@ document.addEventListener('DOMContentLoaded', function () {
           <p>Capacity:</strong> ${section.capacity}</p>
           <p>Registered Students:</strong> ${section.registeredStudents.length}</p>
         </div>
-          <div class="course-actions">
+        <div class="course-actions">
           <button class="btn-view-section">View Section</button>
-          </div>
+        </div>
         
       `;
       const btn = card.querySelector('.btn-view-section');
@@ -269,7 +276,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('sectionModal');
     const sectionList = document.getElementById('sectionList');
     sectionList.innerHTML = '';
-  
     if (section.registeredStudents.length === 0) {
       sectionList.innerHTML = '<p>No students registered in this section!</p>';
     } else {
@@ -279,7 +285,16 @@ document.addEventListener('DOMContentLoaded', function () {
         div.className = 'section-option';
         div.innerHTML = `
           <p><strong>${student.name}</strong></p>
-          <label>Grade: <input class="grade-input" type="text" id="grade-${student.id}" /></label>
+          <label>Grade: 
+            <select class="grade-input" id="grade-${student.id}">
+              <option value="">Select Grade</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="F">F</option>
+            </select>
+          </label>
           <button class="btn-submit-grade" onclick="submitGrade('${student.id}', '${course.id}')">Submit</button>
         `;
         sectionList.appendChild(div);
@@ -287,6 +302,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     modal.style.display = 'block';
   }
+  
   
   window.submitGrade = function(studentId, courseId) {
     const gradeInput = document.getElementById(`grade-${studentId}`);
@@ -296,7 +312,9 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
   
-
+    const users = JSON.parse(localStorage.getItem('users'));
+    const student = users.find(u => u.id === studentId);
+    console.log(student);
   
     if (!student.grades) {
       student.grades = [];
@@ -309,16 +327,19 @@ document.addEventListener('DOMContentLoaded', function () {
       student.grades.push({ courseId, grade });
     }
   
-    //add to completedCourses and remove the course from registeredCourses
+    // Add to completedCourses
     if (!student.completedCourses) {
       student.completedCourses = [];
     }
     if (!student.completedCourses.includes(courseId)) {
       student.completedCourses.push(courseId);
     }
+  
+    // Remove from registeredCourses
     if (student.registeredCourses) {
       student.registeredCourses = student.registeredCourses.filter(id => id !== courseId);
     }
+  
     localStorage.setItem('users', JSON.stringify(users));
     alert('Grade submitted successfully.');
     document.getElementById('sectionModal').style.display = 'none';
