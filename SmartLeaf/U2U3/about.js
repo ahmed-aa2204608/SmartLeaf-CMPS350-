@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   const userJSON = localStorage.getItem('currentUser');
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  
   if (!userJSON) {
     console.error("No user data found in localStorage.");
     return;
   }
   const user = JSON.parse(userJSON);
-
+  const student = users.find(u => u.id === user.id);
   const profilePicElem = document.querySelector('.profile-picture');
   const defaultProfilePicURL = "";
   profilePicElem.src =
@@ -36,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let currentCredits = 0;
-    const courseIds = user.registeredCourses;
+    const courseIds = student.registeredCourses;
     courseIds.forEach(courseId => {
       const regCourse = courses.find(course => course.id === courseId);
       if (regCourse) {
@@ -60,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return count > 0 ? (totalPoints / count) : 0;
     }
 
-    const gpa = calculateGPA(user).toFixed(2);
+    const gpa = calculateGPA(student).toFixed(2);
 
     infoHTML += `<div class="info-item">
       <span class="info-label">GPA:</span>
@@ -72,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
     <div class="info-item">
       <span class="info-label">Major:</span>
-      <span class="info-value">${user.Major}</span>
+      <span class="info-value">${student.major}</span>
     </div>`;
   } else if (user.role === "instructor") {
     infoHTML += `<div class="info-item">
