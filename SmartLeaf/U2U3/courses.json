@@ -3,7 +3,7 @@
     {
       "id": "C101",
       "name": "Introduction to Programming",
-      "category": "Intro",
+      "category": "CS",
       "credits": 3,
       "prerequisite": null,
       "openForRegistration": true,
@@ -88,6 +88,48 @@
           "timing": "SUN-TUE",
           "capacity": 20,
           "minRegistrations" : 5,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
+    },
+    {
+      "id": "C105",
+      "name": "Computer Networks",
+      "category": "CE",
+      "credits": 3,
+      "prerequisite": null,
+      "openForRegistration": false,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C105-001",
+          "instructor": "Dr. Brown",
+          "timing": "SUN-TUE-THU",
+          "capacity": 30,
+          "minRegistrations" : 10,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
+    },
+    {
+      "id": "C106",
+      "name": "Hardware Arch",
+      "category": "CE",
+      "credits": 3,
+      "prerequisite": null,
+      "openForRegistration": false,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C106-001",
+          "instructor": "Dr. Brown",
+          "timing": "SUN-TUE-THU",
+          "capacity": 30,
+          "minRegistrations" : 10,
           "registeredStudents": [],
           "pendingStudents": [],
           "approved": false
