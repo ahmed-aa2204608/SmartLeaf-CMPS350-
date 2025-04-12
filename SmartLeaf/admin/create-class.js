@@ -80,6 +80,7 @@ createClassForm.addEventListener('submit', (e) => {
   const selectedCourseId = courseSelect.value;
   const sectionId = document.getElementById('sectionId').value.trim();
   const instructorName = instructorSelect.value;
+  const timing = parseInt(document.getElementById('timing').value.trim());
   const capacity = parseInt(document.getElementById('capacity').value.trim(), 10);
   const minRegs = parseInt(document.getElementById('minRegistrations').value.trim(), 10);
 
@@ -101,6 +102,7 @@ createClassForm.addEventListener('submit', (e) => {
   const newSection = {
     id: sectionId,
     instructor: instructorName,
+    timing: timing,
     capacity: capacity || 0,
     minRegistrations: minRegs || 0,
     registeredStudents: [],
