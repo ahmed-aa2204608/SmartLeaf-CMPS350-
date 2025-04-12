@@ -7,6 +7,7 @@
       "profilePic" : "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
       "name": "Alice",
       "role": "student",
+      "Major": "CS",
       "completedCourses": ["C101", "C102"],
       "registeredCourses": ["C103"],
       "grades": [
@@ -27,6 +28,7 @@
       "profilePic" : "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
       "name": "Bob",
       "role": "student",
+      "Major": "CS",
       "completedCourses": [],
       "registeredCourses": [],
       "grades": [
@@ -39,6 +41,7 @@
       "profilePic" : "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
       "name": "Charlie",
       "role": "student",
+      "Major": "CE",
       "completedCourses": ["C101"],
       "registeredCourses": [],
       "grades": [
