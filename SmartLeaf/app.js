@@ -437,57 +437,71 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //modal for editing section
     function openEditSectionsModal(course) {
-        const modal = document.getElementById('sectionModal');
-        const sectionList = document.getElementById('sectionList'); 
-        sectionList.innerHTML = '';  
-        const newSectionBtn = document.createElement('button');
-        newSectionBtn.textContent = 'New Section';
-        newSectionBtn.className = 'btn-new-section';
-        newSectionBtn.style.marginBottom = '0.5rem';
-        newSectionBtn.addEventListener('click', () => {
-          window.location.href = `/admin/create-class.html?courseId=${course.id}`;
+      const modal = document.getElementById('sectionModal');
+      const sectionList = document.getElementById('sectionList'); 
+      sectionList.innerHTML = '';  
+    
+      const newSectionBtn = document.createElement('button');
+      newSectionBtn.textContent = 'New Section';
+      newSectionBtn.className = 'btn-new-section';
+      newSectionBtn.style.marginBottom = '0.5rem';
+      newSectionBtn.addEventListener('click', () => {
+        window.location.href = `/admin/create-class.html?courseId=${course.id}`;
+      });
+      sectionList.appendChild(newSectionBtn);
+    
+      course.sections.forEach(section => {
+        const sectionOption = document.createElement('div');
+        sectionOption.classList.add('section-option');
+        sectionOption.innerHTML = `
+          <p><strong>Instructor:</strong> ${section.instructor}</p>
+          <p><strong>Timing:</strong> ${section.timing}</p>
+          <p><strong>Capacity:</strong> ${section.registeredStudents.length}/${section.capacity}</p>
+          <p><strong>Minimum Registrations:</strong> ${section.minRegistrations}</p>
+          <p><strong>Approved:</strong> ${section.approved ? 'Yes' : 'No'}</p>
+          <button class="btn-validate">Validate</button>
+          <button class="btn-cancel">Cancel</button>
+        `;
+    
+        // validate
+        sectionOption.querySelector('.btn-validate').addEventListener('click', () => {
+          if (section.registeredStudents.length >= section.minRegistrations) {
+            section.approved = true;
+            alert("Section validated!");
+          } else {
+            alert("Not enough registrations to validate this section!");
+          }
+          localStorage.setItem('courses', JSON.stringify(courses));
+          openEditSectionsModal(course); 
         });
-        sectionList.appendChild(newSectionBtn);
-      
-        course.sections.forEach(section => {
-          const sectionOption = document.createElement('div');
-          sectionOption.classList.add('section-option');
-          sectionOption.innerHTML = `
-            <p><strong>Instructor:</strong> ${section.instructor}</p>
-            <p><strong>Timing:</strong> ${section.timing}</p>
-            <p><strong>Capacity:</strong> ${section.registeredStudents.length}/${section.capacity}</p>
-            <p><strong>Minimum Registrations:</strong> ${section.minRegistrations}</p>
-            <p><strong>Approved:</strong> ${section.approved ? 'Yes' : 'No'}</p>
-            <button class="btn-validate">Validate</button>
-            <button class="btn-cancel">Cancel</button>
-          `;
-
-          //validate
-          sectionOption.querySelector('.btn-validate').addEventListener('click', () => {
-            if (section.registeredStudents.length >= section.minRegistrations) {
-              section.approved = true;
-              alert("Section validated!");
-            } else {
-              alert("Not enough registrations to validate this section!");
-            }
+    
+        // cancel
+        sectionOption.querySelector('.btn-cancel').addEventListener('click', () => {
+          const confirmCancel = confirm("Are you sure you want to cancel this section?");
+          if (confirmCancel) {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+    
+            section.registeredStudents.forEach(studentId => {
+              const student = users.find(u => u.id === studentId);
+              if (student && Array.isArray(student.registeredCourses)) {
+                student.registeredCourses = student.registeredCourses.filter(cid => cid !== course.id);
+              }
+            });
+    
+            localStorage.setItem('users', JSON.stringify(users));
+    
+            course.sections = course.sections.filter(s => s.id !== section.id);
             localStorage.setItem('courses', JSON.stringify(courses));
             openEditSectionsModal(course); 
-          });
-          //cancel
-          sectionOption.querySelector('.btn-cancel').addEventListener('click', () => {
-            const confirmCancel = confirm("Are you sure you want to cancel this section?");
-            if (confirmCancel) {
-              course.sections = course.sections.filter(s => s.id !== section.id);
-              localStorage.setItem('courses', JSON.stringify(courses));
-              openEditSectionsModal(course); 
-            }
-          });
-      
-          sectionList.appendChild(sectionOption);
+          }
         });
-      
-        modal.style.display = "block";
-      }
+    
+        sectionList.appendChild(sectionOption);
+      });
+    
+      modal.style.display = "block";
+    }
+    
       
       
     
