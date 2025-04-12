@@ -7,13 +7,73 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.querySelector('.search-input');
     const allCoursesTab = document.querySelector('.tab-btn:nth-child(1)');
     const currentCoursesTab = document.querySelector('.tab-btn:nth-child(2)');
+    
 
     //greet user by their name
     const greetUser = document.getElementById('greet');
     if (greetUser && currentUser?.name) {
     greetUser.textContent = `Hello, ${currentUser.name}!`;
     }
-    
+
+    const statsSection = document.querySelector(".stats-section");
+    if (statsSection) {
+      const statCards = statsSection.querySelectorAll(".stat-card");
+      if (statCards.length >= 2) {
+        statCards[0].querySelector(".stat-number").textContent =
+        currentUser.completedCourses ? currentUser.completedCourses.length : 0;
+        statCards[0].querySelector(".stat-label").textContent = "Courses completed";
+        statCards[1].querySelector(".stat-number").textContent =
+        currentUser.registeredCourses ? currentUser.registeredCourses.length : 0;
+        statCards[1].querySelector(".stat-label").textContent = "Courses in progress";
+      }
+    }
+
+    function calculateGPA(currentUser) {
+      const gradeMapping = { "A": 4, "B": 3, "C": 2, "D": 1 };
+      let totalPoints = 0, count = 0;
+      currentUser.grades.forEach(gradeObj => {
+        if (gradeMapping.hasOwnProperty(gradeObj.grade)) {
+          totalPoints += gradeMapping[gradeObj.grade];
+          count++;
+        } else {
+          console.warn("Grade " + gradeObj.grade + " is not recognized.");
+        }
+      });
+      return count > 0 ? totalPoints / count : 0;
+    }
+    const gpa = calculateGPA(currentUser);
+
+    let warnings = [];
+    const hasDGrade = currentUser.grades.some(gradeObj => gradeObj.grade === "D");
+    if (hasDGrade) {
+      warnings.push("Warning: You have a course with a D grade.");
+    }
+    if (gpa < 2.50) {
+      warnings.push(`Warning: Your overall GPA (${gpa.toFixed(2)}) is below 2.50.`);
+    }
+
+    let warningSection = document.querySelector(".warning-section");
+    if (!warningSection) {
+      warningSection = document.createElement("section");
+      warningSection.className = "warning-section";
+      const mainContent = document.querySelector(".main-content");
+      const coursesSection = document.querySelector(".courses-section");
+      if (mainContent && coursesSection) {
+        mainContent.insertBefore(warningSection, coursesSection);
+      } else {
+        mainContent.appendChild(warningSection);
+      }
+    }
+
+    if (warnings.length > 0) {
+      warningSection.innerHTML = warnings.map(msg => `<p>${msg}</p>`).join("");
+      warningSection.style.display = "block";
+    } else {
+      warningSection.style.display = "none";
+    }
+
+
+
     //get courses from local storage if available or from json
     const storedCourses = localStorage.getItem('courses');
     if (storedCourses) {
@@ -125,6 +185,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
       }
       
+
+      
       // add courses to the list
       courses.forEach(course => {
         const courseCard = document.createElement('div');
@@ -234,9 +296,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
   
-    const users = JSON.parse(localStorage.getItem('users'));
-    const student = users.find(u => u.id === studentId);
-    console.log(student);
+
   
     if (!student.grades) {
       student.grades = [];
@@ -380,7 +440,6 @@ document.addEventListener('DOMContentLoaded', function () {
             alert("You cannot register for this course as it does not match your major.");
             return;
         }
-
         // check whether student is already registered for the course
         if (student.registeredCourses.includes(course.id)) {
           alert("You are already registered for this course");
