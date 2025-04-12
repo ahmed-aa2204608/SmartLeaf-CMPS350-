@@ -135,6 +135,27 @@
           "approved": false
         }
       ]
+    },
+    {
+      "id": "C111",
+      "name": "English Post 1",
+      "category": "General",
+      "credits": 3,
+      "prerequisite": null,
+      "openForRegistration": true,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C111-001",
+          "instructor": "Dr. Martinez",
+          "timing": "SUN-TUE-THU",
+          "capacity": 30,
+          "minRegistrations" : 10,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": true
+        }
+      ]
     }
   ]
 }

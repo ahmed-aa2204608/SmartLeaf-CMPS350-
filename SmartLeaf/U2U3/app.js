@@ -241,6 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!student.grades) {
       student.grades = [];
     }
+  
     const currentGrade = student.grades.find(g => g.courseId === courseId);
     if (currentGrade) {
       currentGrade.grade = grade;
@@ -248,10 +249,22 @@ document.addEventListener('DOMContentLoaded', function () {
       student.grades.push({ courseId, grade });
     }
   
+    //add to completedCourses and remove the course from registeredCourses
+    if (!student.completedCourses) {
+      student.completedCourses = [];
+    }
+    if (!student.completedCourses.includes(courseId)) {
+      student.completedCourses.push(courseId);
+    }
+    if (student.registeredCourses) {
+      student.registeredCourses = student.registeredCourses.filter(id => id !== courseId);
+    }
     localStorage.setItem('users', JSON.stringify(users));
     alert('Grade submitted successfully.');
     document.getElementById('sectionModal').style.display = 'none';
   };
+  
+  
   
   function getUserById(id) {
     const users = JSON.parse(localStorage.getItem('users'));
@@ -362,7 +375,8 @@ document.addEventListener('DOMContentLoaded', function () {
           return;
         }
 
-        if(course.category !== student.Major) {
+        //can't register if the course is not general and the category mismatches with the student major
+        if(course.category !== "General" && course.category !== student.major) {
             alert("You cannot register for this course as it does not match your major.");
             return;
         }

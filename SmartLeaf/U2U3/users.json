@@ -7,7 +7,7 @@
       "profilePic" : "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
       "name": "Alice",
       "role": "student",
-      "Major": "CS",
+      "major": "CS",
       "completedCourses": ["C101", "C102"],
       "registeredCourses": ["C103", "C105", "C106"],
       "grades": [
@@ -28,7 +28,7 @@
       "profilePic" : "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
       "name": "Bob",
       "role": "student",
-      "Major": "CS",
+      "major": "CS",
       "completedCourses": [],
       "registeredCourses": [],
       "grades": [
@@ -41,7 +41,7 @@
       "profilePic" : "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
       "name": "Charlie",
       "role": "student",
-      "Major": "CE",
+      "major": "CE",
       "completedCourses": ["C101"],
       "registeredCourses": ["C103", "C105", "C106"],
       "grades": [
@@ -110,7 +110,7 @@
       "password": "martinez123",
       "name": "Dr. Martinez",
       "role": "instructor",
-      "expertise": ["Artificial Intelligence", "Machine Learning"],
+      "expertise": ["English", "Literature"],
       "assignedCourses": []
     }
   ]

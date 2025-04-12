@@ -35,12 +35,16 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   
+   
+  
     const pendingCourses = courses.filter(c =>
+      (c.category === student.major || c.category === "General") &&
       !student.registeredCourses.includes(c.id) &&
       !student.grades.some(g => g.courseId === c.id) &&
       c.openForRegistration
     );
-  
+    
+
     pendingCourses.forEach(course => {
       rows.push({
         name: course.name,
