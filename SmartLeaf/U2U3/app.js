@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
     if (currentUser.role === "student") {
       function calculateGPA(currentUser) {
         const gradeMapping = { "A": 4, "B": 3, "C": 2, "D": 1 };
@@ -95,6 +94,57 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => console.error('Error loading users:', error));
     }
 
+    //gpa calculation
+    if (currentUser.role === "student") {
+      function calculateGPA(currentUser) {
+        const student = users.find(u => u.id === currentUser.id);
+        const gradeMapping = { "A": 4, "B": 3, "C": 2, "D": 1 };
+        let totalPoints = 0, count = 0;
+        student.grades.forEach(gradeObj => {
+          if (gradeMapping.hasOwnProperty(gradeObj.grade)) {
+            totalPoints += gradeMapping[gradeObj.grade];
+            count++;
+          } else {
+            console.warn("Grade " + gradeObj.grade + " is not recognized.");
+          }
+        });
+        return count > 0 ? totalPoints / count : 0;
+      }
+    
+      const gpa = calculateGPA(currentUser);
+    
+      let warnings = [];
+      const student = users.find(u => u.id === currentUser.id);
+      const hasDGrade = student.grades.some(gradeObj => gradeObj.grade === "D");
+      if (hasDGrade) {
+        warnings.push("Warning: You have a course with a D grade.");
+      }
+      if (gpa < 2.50) {
+        warnings.push(`Warning: Your overall GPA (${gpa.toFixed(2)}) is below 2.50.`);
+      }
+    
+      let warningSection = document.querySelector(".warning-section");
+      if (!warningSection) {
+        warningSection = document.createElement("section");
+        warningSection.className = "warning-section";
+        const mainContent = document.querySelector(".main-content");
+        const coursesSection = document.querySelector(".courses-section");
+        if (mainContent && coursesSection) {
+          mainContent.insertBefore(warningSection, coursesSection);
+        } else {
+          mainContent.appendChild(warningSection);
+        }
+      }
+    
+      if (warnings.length > 0) {
+        warningSection.innerHTML = warnings.map(msg => `<p>${msg}</p>`).join("");
+        warningSection.style.display = "block";
+      } else {
+        warningSection.style.display = "none";
+      }
+    }
+
+    //dynamic course stats 
     const statsSection = document.querySelector(".stats-section");
     if (statsSection) {
 
