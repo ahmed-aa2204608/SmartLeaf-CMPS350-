@@ -580,5 +580,27 @@ body {
     text-decoration: none;
     cursor: pointer;
   }
+
+  .admin-controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
   
+  
+  .btn-create {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+.btn-create:hover {
+    background-color: #333;
+  }
  
