@@ -361,6 +361,12 @@ document.addEventListener('DOMContentLoaded', function () {
           alert("You have not completed the prerequisite for this course");
           return;
         }
+
+        if(course.category !== student.Major) {
+            alert("You cannot register for this course as it does not match your major.");
+            return;
+        }
+
         // check whether student is already registered for the course
         if (student.registeredCourses.includes(course.id)) {
           alert("You are already registered for this course");
@@ -391,6 +397,7 @@ document.addEventListener('DOMContentLoaded', function () {
           alert("Registering for this course would exceed the maximum allowed credit hours (9).");
           return;
         }
+        
     
         // register the student user for the section
         section.registeredStudents.push(student.id);
