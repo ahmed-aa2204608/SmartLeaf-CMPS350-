@@ -3,92 +3,96 @@
     {
       "id": "C101",
       "name": "Introduction to Programming",
-      "section" : {"section" : "L01",
-                  "instructor" : ""},
-      "instructor": "Multiple",
       "category": "Intro",
+      "credits": 3,
       "prerequisite": null,
-      "registeredStudents": [],
-      "pendingStudents": [],
-      "approved": false,
-      "capacity": 30,
-      "minRegistrations": 5,
-      "stage": "draft"
+      "openForRegistration": true,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C101-001",
+          "instructor": "Dr. Ali",
+          "timing": "SUN-TUE-THU",
+          "capacity": 30,
+          "minRegistrations" : 3,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        },
+        {
+          "id": "C101-002",
+          "instructor": "Dr. Fatima",
+          "timing": "SUN-TUE",
+          "capacity": 25,
+          "minRegistrations" : 10,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": true
+        }
+      ]
     },
     {
       "id": "C102",
       "name": "Object-Oriented Programming",
-      "section" : {"section" : "L01",
-                  "instructor" : ""},
-      "instructor": "Multiple",
       "category": "CS",
+      "credits": 3,
       "prerequisite": "C101",
-      "registeredStudents": [],
-      "pendingStudents": [],
-      "approved": false,
-      "capacity": 25,
-      "minRegistrations": 5,
-      "stage": "draft"
+      "openForRegistration": true,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C102-001",
+          "instructor": "Dr. Lee",
+          "timing": "MON-WED",
+          "capacity": 20,
+          "minRegistrations" : 5,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
     },
     {
       "id": "C103",
-      "name": "Design Of Systems",
-      "section" : {"section" : "L01",
-                  "instructor" : ""},
-      "instructor": "Multiple",
+      "name": "Design of Systems",
       "category": "CE",
+      "credits": 3,
       "prerequisite": null,
-      "registeredStudents": [],
-      "pendingStudents": [],
-      "approved": false,
-      "capacity": 30,
-      "minRegistrations": 5,
-      "stage": "draft"
+      "openForRegistration": false,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C103-001",
+          "instructor": "Dr. Brown",
+          "timing": "SUN-TUE-THU",
+          "capacity": 30,
+          "minRegistrations" : 10,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
     },
     {
       "id": "C104",
       "name": "Web Development",
-      "section" : {"section" : "L01",
-                  "instructor" : ""},
-      "instructor": "Multiple",
-      "category": "CE",
+      "category": "CS",
+      "credits": 3,
       "prerequisite": null,
-      "registeredStudents": [],
-      "pendingStudents": [],
-      "approved": false,
-      "capacity": 20,
-      "minRegistrations": 5,
-      "stage": "draft"
-    },
-    {
-      "id": "C105",
-      "name": "Hardware Engineering",
-      "section" : {"section" : "L01",
-                  "instructor" : ""},
-      "instructor": "Multiple",
-      "category": "CE",
-      "prerequisite": "C106",
-      "registeredStudents": [],
-      "pendingStudents": [],
-      "approved": false,
-      "capacity": 15,
-      "minRegistrations": 5,
-      "stage": "draft"
-    },
-    {
-      "id": "C106",
-      "name": "Digital logic",
-      "section" : {"section" : "L01",
-                  "instructor" : ""},
-      "instructor": "Multiple",
-      "category": "CE",
-      "prerequisite": "C103",
-      "registeredStudents": [],
-      "pendingStudents": [],
-      "approved": false,
-      "capacity": 20,
-      "minRegistrations": 5,
-      "stage": "draft"
+      "openForRegistration": true,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C104-001",
+          "instructor": "Dr. Ali",
+          "timing": "SUN-TUE",
+          "capacity": 20,
+          "minRegistrations" : 5,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
     }
   ]
 }

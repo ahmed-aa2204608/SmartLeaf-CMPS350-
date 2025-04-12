@@ -369,6 +369,21 @@ document.addEventListener('DOMContentLoaded', function () {
           alert("This section is already full!");
           return;
         }
+
+        const coursesJSON = localStorage.getItem('courses');
+        const courses = coursesJSON ? JSON.parse(coursesJSON).courses : [];
+        let currentCredits = 0;
+        student.registeredCourses.forEach(courseId => {
+          const regCourse = courses.find(c => c.id === courseId);
+          if (regCourse) {
+            currentCredits += regCourse.credits;
+          }
+        });
+
+        if (currentCredits + course.credits > 9) {
+          alert("Registering for this course would exceed the maximum allowed credit hours (9).");
+          return;
+        }
     
         // register the student user for the section
         section.registeredStudents.push(student.id);

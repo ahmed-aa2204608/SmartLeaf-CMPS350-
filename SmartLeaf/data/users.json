@@ -13,6 +13,7 @@
       "id": "student2",
       "username": "bob",
       "password": "bob123",
+      "profilePic": "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
       "name": "Bob",
       "role": "student",
       "completedCourses": [],

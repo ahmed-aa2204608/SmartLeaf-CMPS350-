@@ -4,21 +4,27 @@
       "id": "student1",
       "username": "alice",
       "password": "alice123",
+      "profilePic" : "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
       "name": "Alice",
       "role": "student",
-      "completedCourses": ["C101"],
-      "registeredCourses": [],
+      "completedCourses": ["C101", "C102"],
+      "registeredCourses": ["C103"],
       "grades": [
         {
           "courseId": "C101",
           "grade": "A"
+        },
+        {
+          "courseId": "C102",
+          "grade": "B"
         }
       ]
     },
     {
       "id": "student2",
       "username": "bob",
-      "password": "bob123",
+      "password": "bob12",
+      "profilePic" : "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
       "name": "Bob",
       "role": "student",
       "completedCourses": [],
@@ -30,6 +36,7 @@
       "id": "student3",
       "username": "charlie",
       "password": "charlie123",
+      "profilePic" : "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
       "name": "Charlie",
       "role": "student",
       "completedCourses": ["C101"],
@@ -37,7 +44,7 @@
       "grades": [
         {
           "courseId": "C101",
-          "grade": "B+"
+          "grade": "B"
         }
       ]
     },
