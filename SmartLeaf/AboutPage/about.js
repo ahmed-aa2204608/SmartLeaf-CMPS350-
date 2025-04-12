@@ -1,103 +1,126 @@
 document.addEventListener('DOMContentLoaded', () => {
   const userJSON = localStorage.getItem('currentUser');
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+  
   if (!userJSON) {
     console.error("No user data found in localStorage.");
     return;
   }
   const user = JSON.parse(userJSON);
-
+  const student = users.find(u => u.id === user.id);
   const profilePicElem = document.querySelector('.profile-picture');
   const defaultProfilePicURL = "";
   profilePicElem.src =
     (user.profilePic && user.profilePic.trim() !== "")
       ? user.profilePic
       : defaultProfilePicURL;
-  console.log(user.profilePic);
 
-  const infoItems = document.querySelectorAll('.profile-basic-info .info-item');
-  if (infoItems.length >= 3) {
-    const nameValue = infoItems[0].querySelector('.info-value');
-    if (nameValue) {
-      nameValue.textContent = user.name || "Unknown Name";
-    }
-    const idValue = infoItems[1].querySelector('.info-value');
-    if (idValue) {
-      idValue.textContent = user.id || "Unknown ID";
-    }
-    const roleValue = infoItems[2].querySelector('.info-value');
-    if (roleValue) {
-      roleValue.textContent = user.role || "Unknown Role";
+  let infoHTML = `<h3>Basic Information</h3>
+    <div class="info-item">
+      <span class="info-label">Full Name:</span>
+      <span class="info-value">${user.name || "Unknown Name"}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">ID:</span>
+      <span class="info-value">${user.id || "Unknown ID"}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Role:</span>
+      <span class="info-value">${user.role || "Unknown Role"}</span>
+    </div>`;
+
+  if (user.role === "student") {
+    const coursesJSON = localStorage.getItem('courses');
+    let courses = [];
+    if (coursesJSON) {
+      const parsedData = JSON.parse(coursesJSON);
+      courses = parsedData.courses ? parsedData.courses : parsedData;
     }
 
-    if (user.role === "student") {
-      if (infoItems.length < 5) {
-        console.warn("Expected GPA and Credit Hours info items for a student.");
+    let currentCredits = 0;
+    const courseIds = student.registeredCourses;
+    courseIds.forEach(courseId => {
+      const regCourse = courses.find(course => course.id === courseId);
+      if (regCourse) {
+        currentCredits += regCourse.credits;
       } else {
-        const coursesJSON = localStorage.getItem('courses');
-        let courses = [];
-        if (coursesJSON) {
-          const parsedData = JSON.parse(coursesJSON);
-          courses = parsedData.courses ? parsedData.courses : parsedData;
-        }
-        let currentCredits = 0;
-        const courseIds = user.registeredCourses;
-        courseIds.forEach(courseId => {
-          const regCourse = courses.find(course => course.id === courseId);
-          if (regCourse) {
-            currentCredits += regCourse.credits;
-          } else {
-            console.warn(`Course with id ${courseId} not found in courses list.`);
-          }
-        });
-        console.log("Current Credits: ", currentCredits);
+        console.warn(`Course with id ${courseId} not found in courses list.`);
+      }
+    });
 
-        function calculateGPA(student) {
-          const gradeMapping = { "A": 4, "B": 3, "C": 2, "D": 1 };
-          let totalPoints = 0;
-          let count = 0;
-          student.grades.forEach(gradeObj => {
-            if (gradeMapping.hasOwnProperty(gradeObj.grade)) {
-              totalPoints += gradeMapping[gradeObj.grade];
-              count++;
-            } else {
-              console.warn("Grade " + gradeObj.grade + " is not recognized.");
-            }
-          });
-          return count > 0 ? totalPoints / count : 0;
+    function calculateGPA(student) {
+      const gradeMapping = { "A": 4, "B": 3, "C": 2, "D": 1 };
+      let totalPoints = 0, count = 0;
+      student.grades.forEach(gradeObj => {
+        if (gradeMapping.hasOwnProperty(gradeObj.grade)) {
+          totalPoints += gradeMapping[gradeObj.grade];
+          count++;
+        } else {
+          console.warn("Grade " + gradeObj.grade + " is not recognized.");
         }
-        const gpaValue = infoItems[3].querySelector('.info-value');
-        const gpaLabel = infoItems[3].querySelector('.info-label');
-        if (gpaValue) {
-          gpaValue.textContent = calculateGPA(user).toFixed(2);
-          gpaLabel.textContent = "GPA:";
-        }
-        const creditValue = infoItems[4].querySelector('.info-value');
-        const creditLabel = infoItems[4].querySelector('.info-label');
-        if (creditValue) {
-          creditValue.textContent = currentCredits;
-          creditLabel.textContent = "Credit Hours:";
-        }
-      }
-    } else if (user.role === "instructor") {
-      if (infoItems.length >= 4) {
-        const expertiseValue = infoItems[3].querySelector('.info-value');
-        if (expertiseValue) {
-          expertiseValue.textContent =
-            "Expertise: " + (user.expertise ? user.expertise.join(", ") : "N/A");
-        }
-      }
-      if (infoItems.length >= 5) {
-        infoItems[4].style.display = "none";
-      }
-    } else if (user.role === "admin") {
-      if (infoItems.length >= 4) {
-        infoItems[3].style.display = "none";
-      }
-      if (infoItems.length >= 5) {
-        infoItems[4].style.display = "none";
-      }
+      });
+      return count > 0 ? (totalPoints / count) : 0;
     }
-  } else {
-    console.warn("Profile Basic Info items are missing or have changed order.");
+
+    const gpa = calculateGPA(student).toFixed(2);
+
+    infoHTML += `<div class="info-item">
+      <span class="info-label">GPA:</span>
+      <span class="info-value">${gpa}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Credit Hours:</span>
+      <span class="info-value">${currentCredits}</span>
+    </div>
+    <div class="info-item">
+      <span class="info-label">Major:</span>
+      <span class="info-value">${student.major}</span>
+    </div>`;
+  } else if (user.role === "instructor") {
+    infoHTML += `<div class="info-item">
+      <span class="info-label">Expertise:</span>
+      <span class="info-value">${(user.expertise && user.expertise.length > 0) ? user.expertise.join(", ") : "N/A"}</span>
+    </div>`;
+  } else if (user.role === "admin") {
+  }
+
+  infoHTML += `<div class="info-item">
+      <span class="info-label">Password:</span>
+      <a href="changepass.html" class="info-value change-password">Change password</a>
+    </div>`;
+
+  const profileInfoContainer = document.querySelector('.profile-basic-info');
+  if (profileInfoContainer) {
+    profileInfoContainer.innerHTML = infoHTML;
+  }
+
+
+  const navMenuElem = document.querySelector('.nav-menu');
+  let navMenuHTML = "";
+  if (user.role === "student") {
+    navMenuHTML = `
+      <a href="/U2U3/student.html" class="nav-item active"><i class="fas fa-home"></i></a>
+      <a href="/learningPath/course-schedule.html" id="learningPath" class="nav-item"><i class="fas fa-graduation-cap"></i></a>
+      <a href="about.html" class="nav-item"><i class="fas fa-user"></i></a>
+      <a href="#" class="nav-item"><i class="fas fa-envelope"></i></a>
+      <a href="/Login/index.html" class="nav-item"><i class="fas fa-sign-out-alt"></i></a>
+    `;
+  } else if (user.role === "instructor") {
+    navMenuHTML = `
+      <a href="/instructor/instructor.html" class="nav-item active"><i class="fas fa-home"></i></a>
+      <a href="/learningPath/course-schedule.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i></a>
+      <a href="about.html" class="nav-item"><i class="fas fa-user"></i></a>
+      <a href="/Login/index.html" class="nav-item"><i class="fas fa-sign-out-alt"></i></a>
+    `;
+  } else if (user.role === "admin") {
+    navMenuHTML = `
+      <a href="/admin/admin.html" class="nav-item active"><i class="fas fa-home"></i></a>
+      <a href="/learningPath/course-schedule.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i></a>
+      <a href="about.html" class="nav-item"><i class="fas fa-user"></i></a>
+      <a href="/Login/index.html" class="nav-item"><i class="fas fa-sign-out-alt"></i></a>
+    `;
+  }
+  if (navMenuElem) {
+    navMenuElem.innerHTML = navMenuHTML;
   }
 });

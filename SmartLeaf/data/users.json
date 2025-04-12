@@ -4,29 +4,55 @@
       "id": "student1",
       "username": "alice",
       "password": "alice123",
+      "profilePic" : "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
       "name": "Alice",
       "role": "student",
-      "completedCourses": [],
-      "registeredCourses": []
+      "major": "CS",
+      "completedCourses": ["C101", "C102"],
+      "registeredCourses": ["C103", "C106"],
+      "registeredClasses" : ["C101-001", "C102-001"],
+      "grades": [
+        {
+          "courseId": "C101",
+          "grade": "A"
+        },
+        {
+          "courseId": "C102",
+          "grade": "B"
+        }
+      ]
     },
     {
       "id": "student2",
       "username": "bob",
-      "password": "bob123",
-      "profilePic": "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
+      "password": "bob12",
+      "profilePic" : "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
       "name": "Bob",
       "role": "student",
+      "major": "CS",
       "completedCourses": [],
-      "registeredCourses": []
+      "registeredCourses": [],
+      "registeredClasses" : [],
+      "grades": [
+      ]
     },
     {
       "id": "student3",
       "username": "charlie",
       "password": "charlie123",
+      "profilePic" : "https://media.gettyimages.com/id/1438969575/photo/smiling-young-male-college-student-wearing-headphones-standing-in-a-classroom.jpg?s=612x612&w=gi&k=20&c=SpIONFFVzrC2OpgxeC2GEpUs0mDQxjw8xn9Z-gfGs5c=",
       "name": "Charlie",
       "role": "student",
-      "completedCourses": [],
-      "registeredCourses": []
+      "major": "CE",
+      "completedCourses": ["C101"],
+      "registeredCourses": ["C103", "C105", "C106"],
+      "registeredClasses" : [],
+      "grades": [
+        {
+          "courseId": "C101",
+          "grade": "B"
+        }
+      ]
     },
     {
       "id": "admin1",
@@ -38,12 +64,12 @@
     },
     {
       "id": "instructor1",
-      "username": "drsmith",
-      "password": "smith123",
-      "name": "Dr. Smith",
+      "username": "drali",
+      "password": "ali123",
+      "name": "Dr. Ali",
       "role": "instructor",
-      "expertise": ["Mathematics", "Algebra"],
-      "assignedCourses": []
+      "expertise": ["Programming", "Web Development"],
+      "assignedCourses": ["C101", "C104"]
     },
     {
       "id": "instructor2",
@@ -87,7 +113,7 @@
       "password": "martinez123",
       "name": "Dr. Martinez",
       "role": "instructor",
-      "expertise": ["Artificial Intelligence", "Machine Learning"],
+      "expertise": ["English", "Literature"],
       "assignedCourses": []
     }
   ]

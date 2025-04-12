@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SmartLeaf - E-Learning Platform</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/U2U3/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,9 +20,9 @@
             </div>
             <nav class="nav-menu">
                 <a href="#" class="nav-item active"><i class="fas fa-home"></i></a>
-                <a href="course-schedule.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i></a>
-                <a href="about.html" class="nav-item"><i class="fas fa-user"></i></a>
-                <a href="index.html" class="nav-item"><i class="fas fa-sign-out-alt"></i></a>
+                <a href="/learningPath/course-schedule.html" class="nav-item"><i class="fa-solid fa-calendar-days"></i></a>
+                <a href="/AboutPage/about.html" class="nav-item"><i class="fas fa-user"></i></a>
+                <a href="/Login/index.html" class="nav-item"><i class="fas fa-sign-out-alt"></i></a>
             </nav>
         </aside>
 
@@ -67,11 +67,6 @@
                     <input type="text" class="search-input" placeholder="Search by course name or category...">
                     <i class="fas fa-search search-icon"></i>
                 </div>
-                <div class="admin-controls">
-                    <button class="btn-create" id="createCourseBtn" onclick="location.href='create-course.html'">Create Course</button>
-                    
-                  </div>
-          
                 <!-- Course Tabs -->
                 <div class="course-tabs">
                     <button class="tab-btn active">All Courses</button>
@@ -85,18 +80,17 @@
             </section>
         </main>
     </div>
-    
-    <!-- Window for Section Registration -->
-<div id="sectionModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h3>Select a Section</h3>
-      <div id="sectionList">
-        <!-- Course sections will be loaded here dynamically-->
-      </div>
-    </div>
-</div>
 
+    <div id="sectionModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h3>Add Student Grade</h3>
+          <div id="sectionList">
+            <!-- Course sections will be loaded here dynamically-->
+          </div>
+        </div>
+    </div>
+    
     <!-- js file -->
     <script src="app.js"></script>
 </body>

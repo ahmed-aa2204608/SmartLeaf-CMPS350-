@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
         courses = JSON.parse(storedCourses);  
         renderCourses(courses);  
     } else {
-        fetch('courses.json')
+        fetch('/data/courses.json')
           .then(response => response.json())
           .then(data => {
             courses = data.courses;
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (storedUsers) {
     users = JSON.parse(storedUsers);
     } else {
-    fetch('users.json')
+    fetch('/data/users.json')
         .then(response => response.json())
         .then(data => {
             users = data.users;

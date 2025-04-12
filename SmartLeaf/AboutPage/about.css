@@ -746,9 +746,6 @@ body {
     .app-container {
         flex-direction: column;
     }
-    .main-content{
-        margin-left: auto;
-    }
     .sidebar {
         position: static;
         width: 100%;
@@ -772,6 +769,8 @@ body {
     
     .main-content {
         max-width: 100%;
+        margin: 0 auto; /* Center the main content */
+        padding: 10px;  /* Optional: adjust padding for smaller screens */
     }
     
     .header {
@@ -787,17 +786,20 @@ body {
         overflow-x: auto;
         padding-bottom: 15px;
     }
+    
     .course-meta, .status {
         display: flex;
         justify-content: flex-end;
         flex: 3;
     }
+    
     .illustration {
         transform: scale(0.7);
         display: flex;
         align-items: center;
     }
 }
+
 .course-category {
     display: inline-block;
     padding: 4px 8px;
