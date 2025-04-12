@@ -22,7 +22,7 @@ if (savedCourses) {
   console.log('Loaded courses from localStorage:', courses);
 } else {
   // Otherwise, fetch from JSON
-  fetch('courses.json')
+  fetch('/data/courses.json')
     .then((res) => res.json())
     .then((data) => {
       courses = data.courses || [];

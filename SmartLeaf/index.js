@@ -9,7 +9,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
       return;
     }
 
-    fetch('users.json')
+    fetch('/data/users.json')
       .then(response => response.json())
       .then(data => {
         const user = data.users.find(u => u.username === username && u.password === password);
@@ -19,11 +19,11 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         }
         localStorage.setItem('currentUser', JSON.stringify(user));
         if (user.role === "student") {
-          window.location.href = "student.html";
+          window.location.href = "/student/student.html";
         } else if (user.role === "admin") {
-          window.location.href = "admin.html";
+          window.location.href = "/admin/admin.html";
         } else if (user.role === "instructor") {
-          window.location.href = "instructor.html";
+          window.location.href = "/instructor/instructor.html";
         } else {
           alert("Unknown user role");
         }
