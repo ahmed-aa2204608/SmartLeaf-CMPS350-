@@ -8,7 +8,7 @@
       "name": "Alice",
       "role": "student",
       "completedCourses": ["C101", "C102"],
-      "registeredCourses": ["C103"],
+      "registeredCourses": ["C103", "C105", "C106"],
       "grades": [
         {
           "courseId": "C101",
@@ -40,7 +40,7 @@
       "name": "Charlie",
       "role": "student",
       "completedCourses": ["C101"],
-      "registeredCourses": [],
+      "registeredCourses": ["C103", "C105", "C106"],
       "grades": [
         {
           "courseId": "C101",
