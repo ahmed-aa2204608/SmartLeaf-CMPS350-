@@ -1,0 +1,17 @@
+{
+  "name": "about-test",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "profile.js",
+  "scripts": {
+    "test": "mocha **/*.spec.js"
+  },
+  "dependencies": {
+    "chai": "^5.2.0",
+    "mocha": "^11.1.0"
+  },
+  "devDependencies": {}
+}
