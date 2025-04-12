@@ -9,7 +9,8 @@
       "role": "student",
       "major": "CS",
       "completedCourses": ["C101", "C102"],
-      "registeredCourses": ["C103", "C105", "C106"],
+      "registeredCourses": ["C103", "C106"],
+      "registeredClasses" : ["C101-001", "C102-001"],
       "grades": [
         {
           "courseId": "C101",
@@ -31,6 +32,7 @@
       "major": "CS",
       "completedCourses": [],
       "registeredCourses": [],
+      "registeredClasses" : [],
       "grades": [
       ]
     },
@@ -44,6 +46,7 @@
       "major": "CE",
       "completedCourses": ["C101"],
       "registeredCourses": ["C103", "C105", "C106"],
+      "registeredClasses" : [],
       "grades": [
         {
           "courseId": "C101",

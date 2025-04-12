@@ -66,5 +66,25 @@ body {
     font-size: 15px;
   }
   
- 
+  .schedule-container {
+    margin-top: 2rem;
+  }
+  
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  .schedule-table th, 
+  .schedule-table td {
+    border: 2px solid #ddd;
+    padding: 8px;
+  }
+  
+  .schedule-table thead {
+    background-color: #fbf1e9;
+    font-weight: bold;
+  }
   

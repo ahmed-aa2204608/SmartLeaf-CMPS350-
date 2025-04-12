@@ -13,6 +13,8 @@
 
   <div class="container">
     <h2>Your Learning Path</h2>
+
+    <!-- Existing table for learning path -->
     <table class="learningPathTable">
       <thead>
         <tr>
@@ -24,6 +26,26 @@
       <tbody id="learningPathTableBody">
       </tbody>
     </table>
+
+    <!-- New schedule container -->
+    <div class="schedule-container">
+      <h3>Weekly Schedule</h3>
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Sunday</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+          </tr>
+        </thead>
+        <tbody id="scheduleTableBody">
+          <!-- We will fill this in learning-path.js -->
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <script src="learning-path.js"></script>
