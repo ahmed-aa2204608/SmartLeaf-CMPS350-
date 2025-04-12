@@ -9,7 +9,7 @@
       "role": "student",
       "Major": "CS",
       "completedCourses": ["C101", "C102"],
-      "registeredCourses": ["C103"],
+      "registeredCourses": ["C103", "C105", "C106"],
       "grades": [
         {
           "courseId": "C101",
@@ -43,7 +43,7 @@
       "role": "student",
       "Major": "CE",
       "completedCourses": ["C101"],
-      "registeredCourses": [],
+      "registeredCourses": ["C103", "C105", "C106"],
       "grades": [
         {
           "courseId": "C101",

@@ -353,6 +353,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const student = users.find(u => u.id === currentUser.id);
         const course = courses.find(course => course.id === courseId);
         console.log(course);
+        console.log(course.id);
         const section = course.sections.find(section => section.id === sectionId);
         console.log(section);
         // Check prerequisites
@@ -377,8 +378,7 @@ document.addEventListener('DOMContentLoaded', function () {
           return;
         }
 
-        const coursesJSON = localStorage.getItem('courses');
-        const courses = coursesJSON ? JSON.parse(coursesJSON).courses : [];
+        
         let currentCredits = 0;
         student.registeredCourses.forEach(courseId => {
           const regCourse = courses.find(c => c.id === courseId);
