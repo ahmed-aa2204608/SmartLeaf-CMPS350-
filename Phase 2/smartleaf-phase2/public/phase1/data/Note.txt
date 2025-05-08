@@ -1,0 +1,6 @@
+Stages for Courses
+
+stage 1: draft, only the admin has it
+stage 2: interest, published by admin for Instructors
+stage 3: open, registration is open for students
+stage 4: closed, has students more than the minimum, nobody can apply anymore (unviewable)

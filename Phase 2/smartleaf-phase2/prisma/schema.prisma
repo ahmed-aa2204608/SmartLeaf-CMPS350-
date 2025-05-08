@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  student
+  instructor
+  admin
+}
+
+enum Stage {
+  draft
+  published
+}
+
+model User {
+  id         String  @id
+  username   String  @unique
+  password   String
+  name       String
+  profilePic String?
+
+  role  Role
+  major String?
+
+  expertise         Json?
+  completedCourses  Json?
+  registeredCourses Json?
+  registeredClasses Json?
+  grades            Json?
+  pendingCourses    Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Course {
+  id                  String  @id
+  name                String
+  category            String
+  credits             Int
+  openForRegistration Boolean
+  stage               Stage
+
+  prerequisiteId  String?
+  prerequisite    Course?  @relation("CoursePrereq", fields: [prerequisiteId], references: [id])
+  prerequisiteFor Course[] @relation("CoursePrereq")
+
+  sections Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

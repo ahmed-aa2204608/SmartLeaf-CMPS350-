@@ -1,0 +1,287 @@
+{
+  "courses": [
+    {
+      "id": "C101",
+      "name": "Introduction to Programming",
+      "category": "CS",
+      "credits": 3,
+      "prerequisite": null,
+      "openForRegistration": true,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C101-001",
+          "instructor": "Dr. Ali",
+          "timing": 1,
+          "capacity": 30,
+          "minRegistrations": 3,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        },
+        {
+          "id": "C101-002",
+          "instructor": "Dr. Fatima",
+          "timing": 2,
+          "capacity": 25,
+          "minRegistrations": 10,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": true
+        }
+      ]
+    },
+    {
+      "id": "C102",
+      "name": "Object-Oriented Programming",
+      "category": "CS",
+      "credits": 3,
+      "prerequisite": "C101",
+      "openForRegistration": true,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C102-001",
+          "instructor": "Dr. Lee",
+          "timing": 4,
+          "capacity": 20,
+          "minRegistrations": 5,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
+    },
+    {
+      "id": "C103",
+      "name": "Design of Systems",
+      "category": "CE",
+      "credits": 3,
+      "prerequisite": null,
+      "openForRegistration": false,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C103-001",
+          "instructor": "Dr. Brown",
+          "timing": 7,
+          "capacity": 30,
+          "minRegistrations": 10,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
+    },
+    {
+      "id": "C104",
+      "name": "Web Development",
+      "category": "CS",
+      "credits": 3,
+      "prerequisite": null,
+      "openForRegistration": true,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C104-001",
+          "instructor": "Dr. Ali",
+          "timing": 1,
+          "capacity": 20,
+          "minRegistrations": 5,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
+    },
+    {
+      "id": "C105",
+      "name": "Computer Networks",
+      "category": "CE",
+      "credits": 3,
+      "prerequisite": null,
+      "openForRegistration": false,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C105-001",
+          "instructor": "Dr. Brown",
+          "timing": 5,
+          "capacity": 30,
+          "minRegistrations": 10,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
+    },
+    {
+      "id": "C106",
+      "name": "Hardware Arch",
+      "category": "CE",
+      "credits": 3,
+      "prerequisite": null,
+      "openForRegistration": false,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C106-001",
+          "instructor": "Dr. Brown",
+          "timing": 6,
+          "capacity": 30,
+          "minRegistrations": 10,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
+    },
+    {
+      "id": "C111",
+      "name": "English Post 1",
+      "category": "General",
+      "credits": 3,
+      "prerequisite": null,
+      "openForRegistration": true,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C111-001",
+          "instructor": "Dr. Martinez",
+          "timing": 3,
+          "capacity": 30,
+          "minRegistrations": 10,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": true
+        }
+      ]
+    },
+    {
+      "id": "C107",
+      "name": "Database Systems",
+      "category": "CS",
+      "credits": 3,
+      "prerequisite": "C102",
+      "openForRegistration": true,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C107-001",
+          "instructor": "Dr. Johnson",
+          "timing": 2,
+          "capacity": 25,
+          "minRegistrations": 5,
+          "registeredStudents": [
+            "student1"
+          ],
+          "pendingStudents": [
+            "student2"
+          ],
+          "approved": false
+        },
+        {
+          "id": "C107-002",
+          "instructor": "Dr. Brown",
+          "timing": 6,
+          "capacity": 30,
+          "minRegistrations": 10,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
+    },
+    {
+      "id": "C108",
+      "name": "Operating Systems",
+      "category": "CS",
+      "credits": 3,
+      "prerequisite": "C102",
+      "openForRegistration": false,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C108-001",
+          "instructor": "Dr. Lee",
+          "timing": 7,
+          "capacity": 20,
+          "minRegistrations": 5,
+          "registeredStudents": [],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
+    },
+    {
+      "id": "C201",
+      "name": "Calculus I",
+      "category": "Math",
+      "credits": 4,
+      "prerequisite": null,
+      "openForRegistration": true,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C201-001",
+          "instructor": "Dr. Nguyen",
+          "timing": 3,
+          "capacity": 35,
+          "minRegistrations": 8,
+          "registeredStudents": [
+            "student2"
+          ],
+          "pendingStudents": [],
+          "approved": true
+        }
+      ]
+    },
+    {
+      "id": "C202",
+      "name": "Physics I",
+      "category": "Physics",
+      "credits": 4,
+      "prerequisite": null,
+      "openForRegistration": true,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C202-001",
+          "instructor": "Dr. Smith",
+          "timing": 4,
+          "capacity": 30,
+          "minRegistrations": 8,
+          "registeredStudents": [
+            "student4"
+          ],
+          "pendingStudents": [],
+          "approved": true
+        }
+      ]
+    },
+    {
+      "id": "C204",
+      "name": "Ethics in Technology",
+      "category": "General",
+      "credits": 2,
+      "prerequisite": null,
+      "openForRegistration": true,
+      "stage": "draft",
+      "sections": [
+        {
+          "id": "C204-001",
+          "instructor": "Dr. Ahmed",
+          "timing": 5,
+          "capacity": 40,
+          "minRegistrations": 15,
+          "registeredStudents": [
+            "student3",
+            "student5"
+          ],
+          "pendingStudents": [],
+          "approved": false
+        }
+      ]
+    }
+  ]
+}
