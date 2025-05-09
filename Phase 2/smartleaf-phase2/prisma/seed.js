@@ -7,69 +7,78 @@ const prisma = new PrismaClient()
 async function seed() {
     console.log("Seeding started…")
 
-    const coursesJSON = await fs.readJSON(
+    const { courses } = await fs.readJSON(
         path.join(process.cwd(), "app/data/courses.json")
     )
-    const usersJSON = await fs.readJSON(
+    const { users } = await fs.readJSON(
         path.join(process.cwd(), "app/data/users.json")
     )
 
-    const courseList = coursesJSON.courses
-    const userList = usersJSON.users
+    await prisma.grade.deleteMany()
+    await prisma.section.deleteMany()
+    await prisma.course.deleteMany()
+    await prisma.user.deleteMany()
 
-
-    for (const c of courseList) {
+    for (const course of courses) {
         await prisma.course.create({
             data: {
-                id: c.id,
-                name: c.name,
-                category: c.category,
-                credits: c.credits,
-                openForRegistration: c.openForRegistration,
-                stage: c.stage,
-                sections: c.sections
-            }
+                id: course.id,
+                name: course.name,
+                category: course.category,
+                credits: course.credits,
+                prerequisite: course.prerequisite,
+                openForRegistration: course.openForRegistration,
+                stage: course.stage,
+                sections: {
+                    create: course.sections.map((sec) => ({
+                        id: sec.id,
+                        instructor: sec.instructor,
+                        timing: sec.timing,
+                        capacity: sec.capacity,
+                        minRegistrations: sec.minRegistrations,
+                        registeredStudents: sec.registeredStudents,
+                        pendingStudents: sec.pendingStudents,
+                        approved: sec.approved,
+                    })),
+                },
+            },
         })
+        console.log(`Created course ${course.id}`)
     }
 
-    for (const c of courseList) {
-        if (c.prerequisite) {
-            await prisma.course.update({
-                where: { id: c.id },
-                data: { prerequisiteId: c.prerequisite }
-            })
+    for (const user of users) {
+        const userData = {
+            id: user.id,
+            username: user.username,
+            password: user.password,
+            profilePic: user.profilePic ?? null,
+            name: user.name,
+            role: user.role,
+            major: user.major ?? null,
+            completedCourses: user.completedCourses ?? [],
+            registeredCourses: user.registeredCourses ?? [],
+            registeredClasses: user.registeredClasses ?? [],
+            pendingCourses: user.pendingCourses ?? null,
+            expertise: user.expertise ?? null,
+            assignedCourses: user.assignedCourses ?? null,
+            grades: {
+                create: (user.grades || []).map((g) => ({
+                    courseId: g.courseId,
+                    grade: g.grade,
+                })),
+            },
         }
+
+        await prisma.user.create({ data: userData })
+        console.log(`Created user ${user.id}`)
     }
 
-
-    for (const u of userList) {
-        await prisma.user.create({
-            data: {
-                id: u.id,
-                username: u.username,
-                password: u.password,
-                name: u.name,
-                profilePic: u.profilePic ?? null,
-                role: u.role,
-                major: u.major ?? null,
-
-                expertise: u.expertise ?? null,
-                completedCourses: u.completedCourses ?? null,
-                registeredCourses: u.registeredCourses ?? null,
-                registeredClasses: u.registeredClasses ?? null,
-                grades: u.grades ?? null,
-                pendingCourses: u.pendingCourses ?? null
-            }
-        })
-    }
-
-    console.log("✅  Seeding completed")
+    console.log("Seeding completed!")
 }
-
 
 seed()
     .catch((e) => {
-        console.error("❌  Seeding error:", e)
+        console.error("Seeding error:", e)
         process.exit(1)
     })
     .finally(async () => {
