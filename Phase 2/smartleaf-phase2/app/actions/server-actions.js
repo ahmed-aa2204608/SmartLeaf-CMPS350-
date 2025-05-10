@@ -2,6 +2,9 @@
 
 import Repo from '../repo/repo'
 
+export async function login(prevState, formData) {
+    return await Repo.login(prevState, formData)
+}
 
 export async function getTotalStudents() {
     return await Repo.getTotalStudents()

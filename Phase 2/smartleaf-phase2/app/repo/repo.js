@@ -1,7 +1,38 @@
 import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
+import { createSession } from '@/lib/auth'
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 class Repo {
+
+     async login(prevState, formData) {
+        const username = formData.get('username');
+        const password = formData.get('password');
+      
+        const user = await prisma.user.findUnique({ where: { username } });
+      
+        if (!user || user.password !== password) {
+          return { error: 'Invalid username or password' };
+        }
+      
+        cookies().set('user', JSON.stringify({ id: user.id, role: user.role }), {
+          httpOnly: true,
+          path: '/',
+        });
+      
+        switch (user.role) {
+          case 'student':
+            redirect('/student');
+          case 'instructor':
+            redirect('/instructor');
+          case 'admin':
+            redirect('/admin');
+          default:
+            redirect('/');
+        }
+      }
+
     async getTotalStudents() {
         return prisma.user.count({ where: { role: 'student' } })
     }
