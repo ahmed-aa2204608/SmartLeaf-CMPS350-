@@ -1,8 +1,12 @@
 
 import Image from 'next/image';
 import "@/public/phase1/css/styles.css";
+import { PrismaClient } from "@prisma/client"
+const prisma = new PrismaClient()
 
-export default function StudentPage() {
+export default async function StudentPage() {
+    const courses = await prisma.course.findMany();
+       
   return (
     <div className="app-container">
      
@@ -60,7 +64,18 @@ export default function StudentPage() {
             <button className="tab-btn">Current</button>
           </div>
           <div className="course-list">
-           
+          {courses.map((course) => (
+              <div key={course.id} className="course-card">
+                <div className="course-details">
+            <h3>{course.name}</h3>
+            <p>Instructor: Multiple</p>
+            <span className="course-category">{course.category}</span>
+          </div>
+          <div className="course-actions">
+            <button className="btn-register">Register</button>
+          </div>
+              </div>
+            ))}
           </div>
         </section>
       </main>

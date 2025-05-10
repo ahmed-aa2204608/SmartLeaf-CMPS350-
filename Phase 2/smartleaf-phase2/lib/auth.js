@@ -15,8 +15,8 @@ export async function createSession(userId) {
 
 // Called to get current user from cookie
 export async function getCurrentUser() {
-  const cookieStore = cookies()
-  const session = cookieStore.get('session')
+  const cookieStore = await cookies()
+  const session =  cookieStore.get('session')
 
   if (!session?.value) return null
 

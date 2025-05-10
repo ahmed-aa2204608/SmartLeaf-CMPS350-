@@ -16,7 +16,7 @@ class Repo {
           return { error: 'Invalid username or password' };
         }
       
-        cookies().set('user', JSON.stringify({ id: user.id, role: user.role }), {
+        await cookies().set('user', JSON.stringify({ id: user.id, role: user.role }), {
           httpOnly: true,
           path: '/',
         });

@@ -2,7 +2,7 @@
 
 import { useActionState } from 'react'
 import { login } from '../actions/server-actions'
-
+import "@/public/phase1/index.css";
 export default function LoginPage() {
   const [state, formAction] = useActionState(login, undefined)
 
