@@ -38,16 +38,121 @@ class Repo {
       }
 
        async  searchCourses(query) {
-        if (!query) return [];
         return await prisma.course.findMany({
           where: {
             OR: [
               { name: { contains: query } },
-              { category: { contains: query} },
+              { category: { contains: query } },
             ],
+          },
+          include: {
+            sections: {
+              include: {
+                registeredStudents: true,   //need to change to sections: true
+              }
+            }
           },
         });
       }
+
+     async  getCurrentUser() {
+      const cookieStore = await cookies();
+      const raw = cookieStore.get('user')?.value
+      if (!raw) return null
+    
+      try {
+        return JSON.parse(raw)
+      } catch (err) {
+        console.error('Failed to parse user cookie:', err)
+        return null
+      }
+      }
+
+       async registerForSection(currentUserId, courseId, sectionId) {
+        const student = await prisma.user.findUnique({ where: { id: currentUserId } });
+        const course = await prisma.course.findUnique({ where: { id: courseId } });
+        const section = await prisma.section.findUnique({ where: { id: sectionId } });
+      
+        if (!student || !course || !section) return { error: "Invalid data." };
+        if (!course.openForRegistration) return { error: "Course not open for registration." };
+      
+        const registeredStudents = Array.isArray(section.registeredStudents)
+          ? section.registeredStudents
+          : JSON.parse(section.registeredStudents || "[]");
+      
+        if (registeredStudents.includes(currentUserId))
+          return { error: "Already registered for this section." };
+      
+        if (registeredStudents.length >= section.capacity)
+          return { error: "Section full." };
+      
+        const completedCourses = Array.isArray(student.completedCourses)
+          ? student.completedCourses
+          : JSON.parse(student.completedCourses || "[]");
+      
+        if (course.prerequisite && !completedCourses.includes(course.prerequisite))
+          return { error: "Prerequisite not met." };
+      
+        if (course.category !== "General" && course.category !== student.major)
+          return { error: "Course category doesn't match your major." };
+      
+        const registeredCourses = Array.isArray(student.registeredCourses)
+          ? student.registeredCourses
+          : JSON.parse(student.registeredCourses || "[]");
+      
+        if (registeredCourses.includes(courseId))
+          return { error: "Already registered for this course." };
+      
+        if (completedCourses.includes(courseId))
+          return { error: "You already completed this course." };
+      
+        // Count current credits
+        let currentCredits = 0;
+        for (const cId of registeredCourses) {
+          const c = await prisma.course.findUnique({ where: { id: cId } });
+          if (c) currentCredits += c.credits;
+        }
+      
+        if (currentCredits + course.credits > 9)
+          return { error: "Credit limit exceeded (max 9)." };
+      
+        // Check timing conflict
+        const registeredClasses = Array.isArray(student.registeredClasses)
+          ? student.registeredClasses
+          : JSON.parse(student.registeredClasses || "[]");
+      
+        const existingSections = await prisma.section.findMany({
+          where: { id: { in: registeredClasses } }
+        });
+      
+        const hasConflict = existingSections.some(s => s.timing === section.timing);
+        if (hasConflict)
+          return { error: "Time conflict with another class." };
+      
+        // Update section
+        registeredStudents.push(currentUserId);
+        await prisma.section.update({
+          where: { id: sectionId },
+          data: {
+            registeredStudents: registeredStudents
+          }
+        });
+      
+        // Update user
+        registeredCourses.push(courseId);
+        registeredClasses.push(sectionId);
+        await prisma.user.update({
+          where: { id: currentUserId },
+          data: {
+            registeredCourses: registeredCourses,
+            registeredClasses: registeredClasses
+          }
+        });
+      
+        return { success: true };
+      }
+      
+      
 
 
     async getTotalStudents() {

@@ -6,6 +6,15 @@ export async function login(prevState, formData) {
     return await Repo.login(prevState, formData)
 }
 
+export async function getCurrentUser() {
+    return await Repo.getCurrentUser()
+}
+
+export async function registerForSection(currentUserId, courseId, sectionId) {
+    const result = await Repo.registerForSection( currentUserId, courseId, sectionId );
+    return result; 
+  }
+
 export async function searchCourses(query) {
     if (!query || query.trim() === "") {
       return await Repo.getAllCourses(); 

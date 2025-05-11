@@ -1,14 +1,17 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
 import { searchCourses } from "../actions/server-actions";
+import RegisterModal from "./register-modal";
 
-export default function CourseSearch() {
+export default function CourseSearch({ studentId }) {
   const [query, setQuery] = useState("");
   const [courses, setCourses] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
-      searchCourses(query).then(setCourses); 
+    searchCourses(query).then(setCourses);
   }, [query]);
 
   return (
@@ -24,12 +27,7 @@ export default function CourseSearch() {
         />
         <i className="fas fa-search search-icon"></i>
       </div>
-
-      <div className="course-tabs">
-        <button className="tab-btn active">All Courses</button>
-        <button className="tab-btn">Current</button>
-      </div>
-
+      <br></br>
       <div className="course-list">
         {courses.map((course) => (
           <div key={course.id} className="course-card">
@@ -39,7 +37,16 @@ export default function CourseSearch() {
               <span className="course-category">{course.category}</span>
             </div>
             <div className="course-actions">
-              <button className="btn-register">Register</button>
+              <button className="btn-register" onClick={() => setSelectedCourse(course)}>
+                Register
+              </button>
+              {selectedCourse && (
+                <RegisterModal
+                  course={selectedCourse}
+                  studentId={studentId}
+                  onClose={() => setSelectedCourse(null)}
+                />
+              )}
             </div>
           </div>
         ))}

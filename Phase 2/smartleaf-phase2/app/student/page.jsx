@@ -1,13 +1,12 @@
 
 import "@/public/phase1/css/styles.css";
 import CourseSearch from "./course-search";
-import { searchCourses } from "../actions/server-actions";
-import { redirect } from "next/navigation";
 
-export default async function StudentPage({ searchParams }) {
-    const query1 = await searchParams;
-    const query2 = await query1?.q || "";
-    const courses = await searchCourses(query2);
+import { searchCourses, getCurrentUser } from "../actions/server-actions";
+
+
+export default async function StudentPage() {
+  const user = await getCurrentUser();
   
     return (
       <div className="app-container">
@@ -51,7 +50,7 @@ export default async function StudentPage({ searchParams }) {
               <p className="stat-label">Courses in progress</p>
             </div>
           </section>
-          <CourseSearch searchTerm={query2} />
+          <CourseSearch searchTerm={user.id} />
         </main>
       </div>
     );

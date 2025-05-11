@@ -57,6 +57,7 @@ model User {
   expertise         Json?
   assignedCourses   Json?
   grades            Grade[]
+ 
 }
 
 model Grade {
