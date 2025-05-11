@@ -10,9 +10,8 @@ export async function getCurrentUser() {
     return await Repo.getCurrentUser()
 }
 
-export async function registerForSection(currentUserId, courseId, sectionId) {
-    const result = await Repo.registerForSection( currentUserId, courseId, sectionId );
-    return result; 
+export async function registerForSection(userId, courseId, sectionId) {
+    return await repo.registerForSection(userId, courseId, sectionId)
   }
 
 export async function searchCourses(query) {

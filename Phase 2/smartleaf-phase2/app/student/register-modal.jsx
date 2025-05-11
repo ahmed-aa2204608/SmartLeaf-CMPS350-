@@ -42,7 +42,8 @@ export default function RegisterModal({ course, studentId, onClose }) {
             </div>
           );
         })}
-        
+        {console.log("hello")}
+        {console.log(course)}
         {message && <p>{message}</p>}
       </div>
     </div>

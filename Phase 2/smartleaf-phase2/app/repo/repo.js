@@ -34,7 +34,11 @@ class Repo {
         }
       }
       async getAllCourses() {
-        return await prisma.course.findMany()
+        return await prisma.course.findMany({
+          include: {
+            sections: true,
+          },
+        });
       }
 
        async  searchCourses(query) {
