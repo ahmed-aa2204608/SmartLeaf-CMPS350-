@@ -33,6 +33,22 @@ class Repo {
             redirect('/');
         }
       }
+      async getAllCourses() {
+        return await prisma.course.findMany()
+      }
+
+       async  searchCourses(query) {
+        if (!query) return [];
+        return await prisma.course.findMany({
+          where: {
+            OR: [
+              { name: { contains: query } },
+              { category: { contains: query} },
+            ],
+          },
+        });
+      }
+
 
     async getTotalStudents() {
         return prisma.user.count({ where: { role: 'student' } })

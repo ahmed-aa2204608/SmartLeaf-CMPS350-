@@ -1,93 +1,115 @@
 
-import Image from 'next/image';
 import "@/public/phase1/css/styles.css";
-import { PrismaClient } from "@prisma/client"
-const prisma = new PrismaClient()
+import CourseSearch from "./course-search";
+import { searchCourses } from "../actions/server-actions";
+import { redirect } from "next/navigation";
 
-export default async function StudentPage() {
-    const courses = await prisma.course.findMany();
-       
-  return (
-    <div className="app-container">
-     
-      <aside className="sidebar">
-        <div className="logo">
-          <h1>Menu</h1>
-        </div>
-        <nav className="nav-menu">
-          <a href="/student" className="nav-item active"><i className="fas fa-home"></i></a>
-          <a href="/learningPath/learning-path.html" id="learningPath" className="nav-item"><i className="fas fa-graduation-cap"></i></a>
-          <a href="/AboutPage/about.html" className="nav-item"><i className="fas fa-user"></i></a>
-          <a href="/statistics" className="nav-item"><i className="fas fa-chart-simple"></i></a>
-          <a href="/" className="nav-item"><i className="fas fa-sign-out-alt"></i></a>
-        </nav>
-      </aside>
-
-      <main className="main-content">
-        <header className="header">
-          <div className="user-menu">
-            <div className="user-profile">
-              <img src="/images/free-user-icon-3296-thumb.png" alt="User profile" className="profile-img" />
-            </div>
-          </div>
-        </header>
-
-        <section className="welcome-section">
-          <div className="welcome-text">
-            <h2 id="greet">Hello!</h2>
-            <p>It's good to see you again.</p>
-          </div>
-          <div className="welcome-illustration">
-            <img src="/images/image.png" alt="Welcome illustration" className="illustration" />
-          </div>
-        </section>
-
-        <section className="stats-section">
-          <div className="stat-card">
-            <h2 className="stat-number">11</h2>
-            <p className="stat-label">Courses completed</p>
-          </div>
-          <div className="stat-card">
-            <h2 className="stat-number">4</h2>
-            <p className="stat-label">Courses in progress</p>
-          </div>
-        </section>
-
-        <section className="courses-section">
-          <h2 className="section-title">Courses</h2>
-          <div className="search-container">
-            <input type="text" className="search-input" placeholder="Search by course name or category..." />
-            <i className="fas fa-search search-icon"></i>
-          </div>
-          <div className="course-tabs">
-            <button className="tab-btn active">All Courses</button>
-            <button className="tab-btn">Current</button>
-          </div>
-          <div className="course-list">
-          {courses.map((course) => (
-              <div key={course.id} className="course-card">
-                <div className="course-details">
-            <h3>{course.name}</h3>
-            <p>Instructor: Multiple</p>
-            <span className="course-category">{course.category}</span>
-          </div>
-          <div className="course-actions">
-            <button className="btn-register">Register</button>
-          </div>
+export default async function StudentPage({ searchParams }) {
+    const query1 = await searchParams;
+    const query2 = await query1?.q || "";
+    const courses = await searchCourses(query2);
+  
+    return (
+      <div className="app-container">
+        <aside className="sidebar">
+          <div className="logo"><h1>Menu</h1></div>
+          <nav className="nav-menu">
+            <a href="/student" className="nav-item active"><i className="fas fa-home"></i></a>
+            <a href="/learningPath/learning-path.html" className="nav-item"><i className="fas fa-graduation-cap"></i></a>
+            <a href="/AboutPage/about.html" className="nav-item"><i className="fas fa-user"></i></a>
+            <a href="/statistics" className="nav-item"><i className="fas fa-chart-simple"></i></a>
+            <a href="/" className="nav-item"><i className="fas fa-sign-out-alt"></i></a>
+          </nav>
+        </aside>
+  
+        <main className="main-content">
+          <header className="header">
+            <div className="user-menu">
+              <div className="user-profile">
+                <img src="/images/free-user-icon-3296-thumb.png" alt="User profile" className="profile-img" />
               </div>
-            ))}
-          </div>
-        </section>
-      </main>
-
-    
-      <div id="sectionModal" className="modal">
-        <div className="modal-content">
-          <span className="close">&times;</span>
-          <h3>Select a Section</h3>
-          <div id="sectionList">{}</div>
-        </div>
+            </div>
+          </header>
+  
+          <section className="welcome-section">
+            <div className="welcome-text">
+              <h2>Hello!</h2>
+              <p>It's good to see you again.</p>
+            </div>
+            <div className="welcome-illustration">
+              <img src="/images/image.png" alt="Welcome illustration" className="illustration" />
+            </div>
+          </section>
+  
+          <section className="stats-section">
+            <div className="stat-card">
+              <h2 className="stat-number">11</h2>
+              <p className="stat-label">Courses completed</p>
+            </div>
+            <div className="stat-card">
+              <h2 className="stat-number">4</h2>
+              <p className="stat-label">Courses in progress</p>
+            </div>
+          </section>
+          <CourseSearch searchTerm={query2} />
+        </main>
       </div>
+    );
+  }
+
+/*
+<header className="header">
+<div className="user-menu">
+  <div className="user-profile">
+    <img src="/images/free-user-icon-3296-thumb.png" alt="User profile" className="profile-img" />
+  </div>
+</div>
+</header>
+
+<section className="welcome-section">
+<div className="welcome-text">
+  <h2 id="greet">Hello!</h2>
+  <p>It's good to see you again.</p>
+</div>
+<div className="welcome-illustration">
+  <img src="/images/image.png" alt="Welcome illustration" className="illustration" />
+</div>
+</section>
+
+<section className="stats-section">
+<div className="stat-card">
+  <h2 className="stat-number">11</h2>
+  <p className="stat-label">Courses completed</p>
+</div>
+<div className="stat-card">
+  <h2 className="stat-number">4</h2>
+  <p className="stat-label">Courses in progress</p>
+</div>
+</section>
+
+<section className="courses-section">
+<h2 className="section-title">Courses</h2>
+<div className="search-container">
+  <input type="text" className="search-input" placeholder="Search by course name or category..." />
+  <i className="fas fa-search search-icon"></i>
+</div>
+<div className="course-tabs">
+  <button className="tab-btn active">All Courses</button>
+  <button className="tab-btn">Current</button>
+</div>
+<div className="course-list">
+{courses.map((course) => (
+    <div key={course.id} className="course-card">
+      <div className="course-details">
+  <h3>{course.name}</h3>
+  <p>Instructor: Multiple</p>
+  <span className="course-category">{course.category}</span>
+</div>
+<div className="course-actions">
+  <button className="btn-register">Register</button>
+</div>
     </div>
-  );
-}
+  ))}
+</div>
+</section>
+*/

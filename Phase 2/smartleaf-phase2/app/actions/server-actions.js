@@ -6,6 +6,13 @@ export async function login(prevState, formData) {
     return await Repo.login(prevState, formData)
 }
 
+export async function searchCourses(query) {
+    if (!query || query.trim() === "") {
+      return await Repo.getAllCourses(); 
+    }
+    return await Repo.searchCourses(query);
+  }
+
 export async function getTotalStudents() {
     return await Repo.getTotalStudents()
 }
