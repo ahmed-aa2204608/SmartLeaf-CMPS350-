@@ -11,15 +11,15 @@ export async function getCurrentUser() {
 }
 
 export async function registerForSection(userId, courseId, sectionId) {
-    return await repo.registerForSection(userId, courseId, sectionId)
-  }
+    return await Repo.registerForSection(userId, courseId, sectionId)
+}
 
 export async function searchCourses(query) {
     if (!query || query.trim() === "") {
-      return await Repo.getAllCourses(); 
+        return await Repo.getAllCourses();
     }
     return await Repo.searchCourses(query);
-  }
+}
 
 export async function getTotalStudents() {
     return await Repo.getTotalStudents()
