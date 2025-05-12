@@ -1,4 +1,6 @@
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 import React from 'react'
 import {
   getTotalStudents,
@@ -52,6 +54,10 @@ export default async function DashboardStats() {
     getTop3StudentsByGpa(),
     getTopInstructorBySections(),
   ])
+  const session = await getServerSession(authOptions);
+
+  if (!session) redirect("/login"); // not logged in
+  if (session.user.role !== "admin") redirect("/"); // not admin
 
   const totalClosedCourses = totalCourses - totalOpenCourses
 

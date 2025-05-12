@@ -1,10 +1,31 @@
 'use client'
 
-import { useActionState } from 'react'
-import { login } from '../actions/server-actions'
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import "@/public/phase1/index.css";
+
 export default function LoginPage() {
-  const [state, formAction] = useActionState(login, undefined)
+  const [error, setError] = useState("");
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      username: formData.get("username"),
+      password: formData.get("password"),
+      callbackUrl,
+    });
+
+    if (res.error) {
+      setError("Invalid username or password");
+    } else {
+      window.location.href = "/";
+    }
+  }
 
   return (
     <div className="login-wrapper">
@@ -14,21 +35,22 @@ export default function LoginPage() {
       <div className="login-container">
         <img src="/images/image.png" alt="Logo" className="logo" />
         <h2>Login</h2>
-        <form action={formAction} id="loginForm">
+        <form onSubmit={handleSubmit} id="loginForm">
           <div className="input-group">
             <label htmlFor="username">Username</label>
-            <input type="text" id="username" name="username" placeholder="Enter username" required />
+            <input type="text" id="username" name="username" required />
           </div>
           <div className="input-group">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Enter password" required />
+            <input type="password" id="password" name="password" required />
           </div>
           <button type="submit">Login</button>
-          {state instanceof Error && (
-            <p className="error">{state.message}</p>
-          )}
+          {error && <p className="error">{error}</p>}
         </form>
+
+        <hr />
+        <button onClick={() => signIn("google")}>Login with Google</button>
       </div>
     </div>
-  )
+  );
 }

@@ -2,9 +2,11 @@
 
 import Repo from '../repo/repo'
 
+/*
 export async function login(prevState, formData) {
     return await Repo.login(prevState, formData)
 }
+    */
 
 export async function getCurrentUser() {
     return await Repo.getCurrentUser()
@@ -12,7 +14,7 @@ export async function getCurrentUser() {
 
 export async function registerForSection(userId, courseId, sectionId) {
     return await Repo.registerForSection(userId, courseId, sectionId)
-}
+  }
 
 export async function searchCourses(query) {
     if (!query || query.trim() === "") {

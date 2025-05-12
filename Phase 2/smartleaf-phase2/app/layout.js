@@ -1,5 +1,8 @@
+
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import SessionWrapper from './SessionWrapper';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,17 +22,19 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-       <head>
+      <head>
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-          integrity="sha512-... (you can copy from CDN)"
+          integrity="sha512-..."
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <SessionWrapper>
+          {children}
+        </SessionWrapper>
       </body>
     </html>
   );

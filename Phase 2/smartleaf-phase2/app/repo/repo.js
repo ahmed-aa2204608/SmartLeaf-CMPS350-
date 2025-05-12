@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client"
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 const prisma = new PrismaClient()
 import { createSession } from '@/lib/auth'
 import { cookies } from 'next/headers'
@@ -6,6 +8,7 @@ import { redirect } from 'next/navigation'
 
 class Repo {
 
+  /*
      async login(prevState, formData) {
         const username = formData.get('username');
         const password = formData.get('password');
@@ -33,6 +36,7 @@ class Repo {
             redirect('/');
         }
       }
+    */
       async getAllCourses() {
         return await prisma.course.findMany({
           include: {
@@ -50,26 +54,22 @@ class Repo {
             ],
           },
           include: {
-            sections: {
-              include: {
-                registeredStudents: true,   //need to change to sections: true
-              }
-            }
+            sections: true,
           },
         });
       }
 
-     async  getCurrentUser() {
-      const cookieStore = await cookies();
-      const raw = cookieStore.get('user')?.value
-      if (!raw) return null
+      async getCurrentUser() {
+        const session = await getServerSession(authOptions);
     
-      try {
-        return JSON.parse(raw)
-      } catch (err) {
-        console.error('Failed to parse user cookie:', err)
-        return null
-      }
+        if (!session?.user) return null;
+    
+        return {
+          id: session.user.id,
+          role: session.user.role,
+          name: session.user.name,
+          email: session.user.email,
+        };
       }
 
        async registerForSection(currentUserId, courseId, sectionId) {

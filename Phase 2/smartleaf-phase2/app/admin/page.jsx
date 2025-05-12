@@ -1,5 +1,6 @@
 import "@/public/phase1/css/styles.css";
 import CourseSearch from "../student/course-search";
+import StatisticsNavItem from "../components/StatisticsNavItem";
 import { searchCourses } from "../actions/server-actions";
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -14,11 +15,11 @@ export default async function InstructorPage({ searchParams }) {
         <aside className="sidebar">
           <div className="logo"><h1>Menu</h1></div>
           <nav className="nav-menu">
-            <a href="/student" className="nav-item active"><i className="fas fa-home"></i></a>
+            <a href="/admin" className="nav-item active"><i className="fas fa-home"></i></a>
             <a href="/learningPath/learning-path.html" className="nav-item"><i className="fas fa-graduation-cap"></i></a>
             <a href="/AboutPage/about.html" className="nav-item"><i className="fas fa-user"></i></a>
-            <a href="/statistics" className="nav-item"><i className="fas fa-chart-simple"></i></a>
-            <a href="/" className="nav-item"><i className="fas fa-sign-out-alt"></i></a>
+            <StatisticsNavItem/>
+            <a href="/login" className="nav-item"><i className="fas fa-sign-out-alt"></i></a>
           </nav>
         </aside>
   

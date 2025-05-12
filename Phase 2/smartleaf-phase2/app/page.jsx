@@ -1,17 +1,19 @@
-
-import { redirect } from 'next/navigation'
-import { getCurrentUser } from '@/lib/auth'
+import { redirect } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 export default async function HomePage() {
-  const user = await getCurrentUser()
+  const session = await getServerSession(authOptions);
 
-  if (!user) {
-    redirect('/login')
+  if (!session) {
+    redirect('/login');
   }
 
-  if (user.role === 'student') redirect('/student')
-  if (user.role === 'instructor') redirect('/instructor')
-  if (user.role === 'admin') redirect('/admin')
+  const role = session.user.role;
 
-  return null
+  if (role === 'student') redirect('/student');
+  if (role === 'instructor') redirect('/instructor');
+  if (role === 'admin') redirect('/admin');
+
+  return null;
 }
