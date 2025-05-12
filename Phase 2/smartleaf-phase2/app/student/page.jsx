@@ -32,7 +32,7 @@ export default async function StudentPage() {
   
           <section className="welcome-section">
             <div className="welcome-text">
-              <h2>Hello!</h2>
+              <h2>Hello {user.name}!</h2>
               <p>It's good to see you again.</p>
             </div>
             <div className="welcome-illustration">

@@ -156,6 +156,71 @@ class Repo {
         return { success: true };
       }
       
+      async  getInstructorSections(username) {
+        const instructor = await prisma.user.findUnique({
+          where: { username: username }, 
+        });
+      
+        if (!instructor) return [];
+      
+        const instructorName = instructor.name; 
+      
+        const courses = await prisma.course.findMany({
+          include: {
+            sections: true,
+          },
+        });
+      
+        const instructorSections = [];
+      
+        for (const course of courses) {
+          for (const section of course.sections) {
+            if (section.instructor === instructorName) {
+              instructorSections.push({ course, section });
+            }
+          }
+        }
+      
+        return instructorSections;
+      }
+      
+      
+     async  getStudentById(id) {
+        return await prisma.user.findUnique({ where: { id } });
+      }
+      
+       async submitGrade({ studentId, courseId, grade }) {
+        const student = await prisma.user.findUnique({ where: { id: studentId } });
+      
+        const existingGrades = student.grades || [];
+      
+        const updatedGrades = [...existingGrades];
+        const gradeIndex = updatedGrades.findIndex(g => g.courseId === courseId);
+      
+        if (gradeIndex !== -1) {
+          updatedGrades[gradeIndex].grade = grade;
+        } else {
+          updatedGrades.push({ courseId, grade });
+        }
+      
+        const updatedRegistered = (student.registeredCourses || []).filter(id => id !== courseId);
+        const updatedCompleted = Array.from(new Set([...(student.completedCourses || []), courseId]));
+      
+        await prisma.user.update({
+          where: { id: studentId },
+          data: {
+            grades: updatedGrades,
+            registeredCourses: updatedRegistered,
+            completedCourses: updatedCompleted,
+          },
+        });
+      
+        return { success: true };
+      }
+
+
+
+
       
 
 

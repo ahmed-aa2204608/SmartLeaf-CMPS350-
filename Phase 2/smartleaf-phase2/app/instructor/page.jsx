@@ -1,10 +1,13 @@
 import "@/public/phase1/css/styles.css";
 import CourseSearch from "../student/course-search";
 import StatisticsNavItem from "../components/StatisticsNavItem";
+import { getCurrentUser } from "../actions/server-actions";
+import InstructorSections from "./instructor-sections";
 import { searchCourses } from "../actions/server-actions";
 import { redirect } from "next/navigation";
 
 export default async function InstructorPage({ searchParams }) {
+    const user = await getCurrentUser();
     const query1 = await searchParams;
     const query2 = await query1?.q || "";
     const courses = await searchCourses(query2);
@@ -33,7 +36,7 @@ export default async function InstructorPage({ searchParams }) {
   
           <section className="welcome-section">
             <div className="welcome-text">
-              <h2>Hello Instructor!</h2>
+              <h2>Hello {user.name}!</h2>
               <p>It's good to see you again.</p>
             </div>
             <div className="welcome-illustration">
@@ -43,15 +46,19 @@ export default async function InstructorPage({ searchParams }) {
   
           <section className="stats-section">
             <div className="stat-card">
-              <h2 className="stat-number">11</h2>
+              <h2 className="stat-number">5</h2>
               <p className="stat-label">Courses taught</p>
             </div>
             <div className="stat-card">
               <h2 className="stat-number">4</h2>
               <p className="stat-label">Courses in progress</p>
             </div>
+            
           </section>
-          <CourseSearch searchTerm={query2} />
+          <br></br>
+          <br></br>
+          <h2 className="section-title">Your Sections</h2>
+          <InstructorSections username={user.name} />
         </main>
       </div>
     );

@@ -12,6 +12,18 @@ export async function getCurrentUser() {
     return await Repo.getCurrentUser()
 }
 
+export async function getInstructorSections(username) {
+    return await Repo.getInstructorSections(username)
+}
+
+export async function getStudentById(id) {
+    return await Repo.getStudentById(id)
+}
+
+export async function submitGrade({studentId, courseId, grade}) {
+    return await Repo.submitGrade({studentId, courseId, grade})
+}
+
 export async function registerForSection(userId, courseId, sectionId) {
     return await Repo.registerForSection(userId, courseId, sectionId)
   }
