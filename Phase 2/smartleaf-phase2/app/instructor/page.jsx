@@ -18,8 +18,8 @@ export default async function InstructorPage({ searchParams }) {
           <div className="logo"><h1>Menu</h1></div>
           <nav className="nav-menu">
             <a href="/instructor" className="nav-item active"><i className="fas fa-home"></i></a>
-            <a href="/learningPath/learning-path.html" className="nav-item"><i className="fas fa-graduation-cap"></i></a>
-            <a href="/AboutPage/about.html" className="nav-item"><i className="fas fa-user"></i></a>
+            <a href="/phase1/learningPath/course-schedule.html" className="nav-item"><i className="fa-solid fa-calendar-days"></i></a>
+            <a href="/phase1/AboutPage/about.html" className="nav-item"><i className="fas fa-user"></i></a>
             <StatisticsNavItem/>
             <a href="/login" className="nav-item"><i className="fas fa-sign-out-alt"></i></a>
           </nav>

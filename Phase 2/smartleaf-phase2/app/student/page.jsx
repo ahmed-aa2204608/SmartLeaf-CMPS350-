@@ -14,8 +14,8 @@ export default async function StudentPage() {
           <div className="logo"><h1>Menu</h1></div>
           <nav className="nav-menu">
             <a href="/student" className="nav-item active"><i className="fas fa-home"></i></a>
-            <a href="/learningPath/learning-path.html" className="nav-item"><i className="fas fa-graduation-cap"></i></a>
-            <a href="/AboutPage/about.html" className="nav-item"><i className="fas fa-user"></i></a>
+            <a href="/phase1/learningPath/learning-path.html" className="nav-item"><i className="fas fa-graduation-cap"></i></a>
+            <a href="/phase1/AboutPage/about.html" className="nav-item"><i className="fas fa-user"></i></a>
             <StatisticsNavItem/>
             <a href="/login" className="nav-item"><i className="fas fa-sign-out-alt"></i></a>
           </nav>

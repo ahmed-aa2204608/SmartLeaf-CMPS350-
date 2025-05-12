@@ -1,14 +1,12 @@
 import "@/public/phase1/css/styles.css";
 import CourseSearch from "../student/course-search";
 import StatisticsNavItem from "../components/StatisticsNavItem";
-import { searchCourses } from "../actions/server-actions";
+import { searchCourses, getCurrentUser } from "../actions/server-actions";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
-export default async function InstructorPage({ searchParams }) {
-    const query1 = await searchParams;
-    const query2 = await query1?.q || "";
-    const courses = await searchCourses(query2);
+export default async function AdminPage({ searchParams }) {
+    const user = await getCurrentUser();
   
     return (
       <div className="app-container">
@@ -16,8 +14,8 @@ export default async function InstructorPage({ searchParams }) {
           <div className="logo"><h1>Menu</h1></div>
           <nav className="nav-menu">
             <a href="/admin" className="nav-item active"><i className="fas fa-home"></i></a>
-            <a href="/learningPath/learning-path.html" className="nav-item"><i className="fas fa-graduation-cap"></i></a>
-            <a href="/AboutPage/about.html" className="nav-item"><i className="fas fa-user"></i></a>
+            <a href="/phase1/learningPath/course-schedule.html" className="nav-item"><i className="fa-solid fa-calendar-days"></i></a>
+            <a href="/phase1/AboutPage/about.html" className="nav-item"><i className="fas fa-user"></i></a>
             <a href="/statistics" className="nav-item"><i className="fas fa-chart-simple"></i></a>
             <a href="/login" className="nav-item"><i className="fas fa-sign-out-alt"></i></a>
           </nav>
@@ -57,7 +55,7 @@ export default async function InstructorPage({ searchParams }) {
                     <button className="btn-create" id="createCourseBtn">Create Course</button>
                     
                   </div></Link>
-          <CourseSearch searchTerm={query2} />
+           <CourseSearch studentId={user.id} />
           
         </main>
       </div>
