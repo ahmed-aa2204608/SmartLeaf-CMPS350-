@@ -1,4 +1,5 @@
 "use client";
+import Portal from "../components/Portal";
 import { useState } from "react";
 import { registerForSection } from "../actions/server-actions";
 
@@ -16,6 +17,7 @@ export default function RegisterModal({ course, studentId, onClose }) {
   }
 
   return (
+    <Portal>
     <div className="modal" style={{ display: "block" }}>
       <div className="modal-content">
         <span className="close" onClick={onClose}>&times;</span>
@@ -47,5 +49,6 @@ export default function RegisterModal({ course, studentId, onClose }) {
         {message && <p>{message}</p>}
       </div>
     </div>
+    </Portal>
   );
 }

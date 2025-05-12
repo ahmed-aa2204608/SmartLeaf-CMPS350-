@@ -26,24 +26,18 @@ export const authOptions = {
   callbacks: {
 
     // we have assumed that the google users are by default admins so they will be redirected to admin page
-    async redirect({ url, baseUrl, account }) {
-        // Respect callback URL if it exists
-        if (url.startsWith(baseUrl)) return url;
-    
-        if (account?.provider === "google") {
-          return `${baseUrl}/admin`; // fallback for Google login
-        }
-    
-        return baseUrl;
-      },
+    async redirect({ baseUrl, account }) {
+      if (account?.provider === "google") return `${baseUrl}/admin`;
+      return `${baseUrl}/`;
+    },
 
     //google user will get the admin role in jwt
     async jwt({ token, user, account }) {
-      // `account` is only defined the moment the user signs in
+   
       if (account?.provider === "google") token.role = "admin";
       if (user) {
         token.id = user.id ?? token.id;
-        token.role = user.role ?? token.role; // credential users keep their DB role
+        token.role = user.role ?? token.role; 
       }
       return token;
     },
