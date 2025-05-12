@@ -23,6 +23,8 @@ export async function searchCourses(query) {
     return await Repo.searchCourses(query);
 }
 
+
+
 export async function getTotalStudents() {
     return await Repo.getTotalStudents()
 }
